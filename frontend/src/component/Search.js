@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SearchResultPage from "./SearchResultPage";
 import MatchDetailPage from "./MatchDetailPage";
 import "./Search.css";
+import axios from "axios";
+import logo from "../img/logo.PNG";
 
 const Search = () => {
   const [summonerName, setSummonerName] = useState("");
@@ -16,7 +18,7 @@ const Search = () => {
   };
 
   const handleSearch = async () => {
-    // 검색 로직을 추가하세요. 예를 들면, API 호출 등
+    await axios.get(`/summoners/match?name=${summonerName}`);
     console.log("Searching for summoner:", summonerName);
 
     // 가상의 매치 데이터 예시
@@ -31,13 +33,17 @@ const Search = () => {
 
   return (
     <div className='app'>
-      <h1>롤 전적 검색</h1>
+      <img src={logo} style={{ width: "60px" }} />
+      <h3 style={{ marginBottom: "0px" }}>롤 매치의 모든 정보</h3>
+      <h1 style={{ marginTop: "0px" }}> 롤 전적 검색 서비스</h1>
       <div className='search-container'>
         <input
           type='text'
           placeholder='소환사명을 입력하세요'
           value={summonerName}
           onChange={handleInputChange}
+          required
+          style={{ margin: "0px", marginRight: "10px" }}
         />
         <button onClick={handleSearch}>검색</button>
       </div>
