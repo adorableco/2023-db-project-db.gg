@@ -19,11 +19,12 @@ public class GameAccountController {
     private final GameAccountService gameAccountService;
 
     @GetMapping
-    public ResponseEntity<GameAccountResponse> getMatchInfo(
+    public ResponseEntity<GameAccountResponse> getSummonerInfo(
             @RequestParam String summonerName){
 
         log.info("getMatchInfo input Param [userName] : " + summonerName);
 
         return ResponseEntity.ok(gameAccountService.findGameAccounts(summonerName));
     }
+
 }
