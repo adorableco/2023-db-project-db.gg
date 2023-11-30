@@ -12,14 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GameAccountDTO {
 
-    private Long gameAccountId;
     private String gameName;
     private tierType tier;
     private Integer accountLevel;
 
     public static GameAccountDTO from(GameAccount gameAccount){
         return GameAccountDTO.builder()
-                .gameAccountId(gameAccount.getUniqueGameAccountId())
                 .accountLevel(gameAccount.getAccountLevel())
                 .tier(gameAccount.getTier())
                 .gameName(gameAccount.getGameName())
