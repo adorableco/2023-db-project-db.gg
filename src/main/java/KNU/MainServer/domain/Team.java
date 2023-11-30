@@ -21,7 +21,7 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teamId;
     @ManyToOne
-    @JoinColumn(name = "matchId")
+    @JoinColumn(name = "Match_id")
     private Match match;
     private Integer isWin;
     private Integer isFirstBlood;

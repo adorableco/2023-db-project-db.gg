@@ -12,7 +12,7 @@ public class Purchase {
     @Id
     private Long eventId;
     @ManyToOne
-    @JoinColumn(name = "itemId")
+    @JoinColumn(name = "Item_id")
     private Item item;
     private Integer qty;
     // getters and setters
