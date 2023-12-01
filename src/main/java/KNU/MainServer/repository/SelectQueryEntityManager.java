@@ -2,6 +2,8 @@ package KNU.MainServer.repository;
 
 import KNU.MainServer.domain.GameAccount;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +35,17 @@ public class SelectQueryEntityManager {
         TypedQuery<GameAccount> query = em.createQuery(sql, GameAccount.class);
         query.setParameter("gameName", name);
 
-        GameAccount result = query.getSingleResult();
-        log.info("Repository : Results " + result.toString());
+        GameAccount result;
+        try {
+            result = query.getSingleResult();
+            log.info("Repository : Results " + result.toString());
+        } catch (NoResultException e) {
+            log.error("No game account found with name: " + name);
+            return null;
+        } catch (NonUniqueResultException e) {
+            log.error("Multiple game accounts found with name: " + name);
+            return null;
+        }
 
         return result;
     }
