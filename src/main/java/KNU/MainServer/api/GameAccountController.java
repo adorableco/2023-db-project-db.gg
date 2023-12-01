@@ -1,8 +1,8 @@
 package KNU.MainServer.api;
 
 
-import KNU.MainServer.Response.GameAccountResponse;
-import KNU.MainServer.Response.MatchInfoResponse;
+import KNU.MainServer.response.GameAccountResponse;
+import KNU.MainServer.response.MatchInfoResponse;
 import KNU.MainServer.service.GameAccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +34,9 @@ public class GameAccountController {
 
         log.info("getMatchInfo input param [gameAccountId] : " + gameName);
 
-        Long accountId = gameAccountService.findGameAccountIdByName(gameName);
+        MatchInfoResponse response = gameAccountService.findGameAccountIdByName(gameName);
 
-        log.info(gameName + "'s Account Id : " + accountId);
-        return null;
+        log.info("Return Value for get Match Info: " +response);
+        return ResponseEntity.ok(response);
     }
 }
