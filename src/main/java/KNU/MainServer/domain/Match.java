@@ -6,8 +6,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
+import lombok.Getter;
 
-@Entity
+@Entity @Getter
 @Table(name = "MATCH")
 public class Match {
 
