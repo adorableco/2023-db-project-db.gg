@@ -8,13 +8,13 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
 import lombok.Getter;
 
-@Entity @Getter
+@Entity
+@Getter
 @Table(name = "GAME_ACCOUNT")
 public class GameAccount {
     @Id
@@ -35,7 +35,6 @@ public class GameAccount {
                 ", gameName='" + gameName + '\'' +
                 ", accountLevel=" + accountLevel +
                 ", tier=" + tier +
-                ", participants=" + participants +
-                '}';
+                "}\n";
     }
 }

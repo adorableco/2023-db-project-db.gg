@@ -11,11 +11,20 @@ import java.util.List;
 @Table(name = "MATCH")
 public class Match {
 
+    // getters and setters
+    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
+    List<Team> teams;
     @Id
     private String uniqueMatchId;
     private Integer duration;
     private String matchType;
-    // getters and setters
-    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
-    List<Team> teams;
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "uniqueMatchId='" + uniqueMatchId + '\'' +
+                ", duration=" + duration +
+                ", matchType='" + matchType + '\'' +
+                "}\n";
+    }
 }

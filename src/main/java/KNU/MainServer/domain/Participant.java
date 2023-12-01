@@ -9,9 +9,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import org.springframework.data.util.Lazy;
+import lombok.Getter;
 
 @Entity
+@Getter
 @Table(name = "PARTICIPANT")
 public class Participant {
     @Id
@@ -32,5 +33,16 @@ public class Participant {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Champion_id")
     private Champion champion;
+
+    @Override
+    public String toString() {
+        return "Participant{" +
+                "participantId=" + participantId +
+                ", kills=" + kills +
+                ", deaths=" + deaths +
+                ", assists=" + assists +
+                ", participantLevel=" + participantLevel +
+                "}\n";
+    }
     // getters and setters
 }
