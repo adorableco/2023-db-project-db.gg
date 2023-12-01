@@ -1,4 +1,4 @@
-package KNU.MainServer.Response;
+package KNU.MainServer.response;
 
 import KNU.MainServer.dto.GameAccountDTO;
 import KNU.MainServer.dto.MatchInfoDTO;
