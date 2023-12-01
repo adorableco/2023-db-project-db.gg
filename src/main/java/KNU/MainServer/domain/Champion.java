@@ -16,4 +16,13 @@ public class Champion {
     private Long uniqueChampId;
     private String champName;
     private String champPhoto;
+
+    @Override
+    public String toString() {
+        return "Champion{" +
+                "uniqueChampId=" + uniqueChampId +
+                ", champName='" + champName + '\'' +
+                ", champPhoto='" + champPhoto + '\'' +
+                '}';
+    }
 }
