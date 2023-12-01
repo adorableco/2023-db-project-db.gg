@@ -41,14 +41,14 @@ public class SelectQueryEntityManager {
 
     public List<Object[]> findMatchAndParticipantInfoByAccountName
             (String name) {
-        String sql = "SELECT ga, p, m FROM GameAccount ga "
+        String sql = "SELECT ga, p, m, c FROM GameAccount ga "
                 + "JOIN Participant p ON  ga.uniqueGameAccountId = p.gameAccount.id "
+                + "JOIN Champion c ON p.champion.uniqueChampId = c.uniqueChampId "
                 + "JOIN Team t ON t.teamId = p.team.teamId "
                 + "JOIN Match m ON m.uniqueMatchId = t.match.id WHERE ga.gameName = :name";
+
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
         query.setParameter("name", name);
-        List<Object[]> results = query.getResultList();
-        log.info("Query results: " + Arrays.toString(results.get(0)));
-        return results;
+        return query.getResultList();
     }
 }
