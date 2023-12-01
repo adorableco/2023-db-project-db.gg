@@ -2,6 +2,7 @@ package KNU.MainServer.api;
 
 
 import KNU.MainServer.Response.GameAccountResponse;
+import KNU.MainServer.Response.MatchInfoResponse;
 import KNU.MainServer.service.GameAccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +21,22 @@ public class GameAccountController {
 
     @GetMapping
     public ResponseEntity<GameAccountResponse> getSummonerInfo(
-            @RequestParam String summonerName){
+            @RequestParam String summonerName) {
 
-        log.info("getMatchInfo input Param [userName] : " + summonerName);
+        log.info("getSummonerInfo input Param [userName] : " + summonerName);
 
         return ResponseEntity.ok(gameAccountService.findGameAccounts(summonerName));
     }
 
+    @GetMapping("/match")
+    public ResponseEntity<MatchInfoResponse> getMatchInfo(
+            @RequestParam String gameName) {
+
+        log.info("getMatchInfo input param [gameAccountId] : " + gameName);
+
+        Long accountId = gameAccountService.findGameAccountIdByName(gameName);
+
+        log.info(gameName + "'s Account Id : " + accountId);
+        return null;
+    }
 }
