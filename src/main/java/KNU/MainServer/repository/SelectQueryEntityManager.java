@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Slf4j
 @RequiredArgsConstructor
-public class GameAccountRepository {
+public class SelectQueryEntityManager {
     private final EntityManager em;
 
     public List<GameAccount> getGameAccountBySimilarName
