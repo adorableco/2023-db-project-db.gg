@@ -10,8 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
 @Entity
+@Getter
 @Table(name = "EVENT")
 public class Event {
     @Id
@@ -28,4 +30,13 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "Match_id")
     private Match match;
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "uniqueEventId=" + uniqueEventId +
+                ", timestamp=" + timestamp +
+                ", eventType=" + eventType +
+                '}';
+    }
 }
