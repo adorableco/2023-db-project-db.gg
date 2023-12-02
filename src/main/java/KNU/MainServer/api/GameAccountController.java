@@ -2,6 +2,7 @@ package KNU.MainServer.api;
 
 
 import KNU.MainServer.response.GameAccountResponse;
+import KNU.MainServer.response.MatchDetailResponse;
 import KNU.MainServer.response.MatchInfoResponse;
 import KNU.MainServer.service.GameAccountService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,14 @@ public class GameAccountController {
 
         MatchInfoResponse response = gameAccountService.findGameAccountIdByName(gameName);
 
-        log.info("Return Value for get Match Info: " +response);
+        log.info("Return Value for get Match Info: " + response);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/match/log")
+    public ResponseEntity<MatchDetailResponse> getMatchDetail(
+            @RequestParam String matchId) {
+
+        return null;
     }
 }

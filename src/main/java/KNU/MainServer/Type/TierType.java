@@ -1,6 +1,6 @@
-package KNU.MainServer.domain;
+package KNU.MainServer.Type;
 
-public enum tierType {
+public enum TierType {
     CHALLENGER,
     MASTER,
     GRAND_MASTER,
