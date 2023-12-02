@@ -75,4 +75,16 @@ public class SelectQueryEntityManager {
         query.setParameter("matchId", matchId);
         return query.getResultList();
     }
+
+    public List<Object[]> findEventDetailByMatchId
+            (String matchId) {
+        String sql = "SELECT e, p  FROM Match m "
+                + "JOIN Event e ON e.match.uniqueMatchId  = m.uniqueMatchId "
+                + "JOIN Participant p ON e.participant.participantId = p.participantId "
+                + "WHERE m.uniqueMatchId = :matchId";
+
+        TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
+        query.setParameter("matchId", matchId);
+        return query.getResultList();
+    }
 }

@@ -44,7 +44,10 @@ public class GameAccountController {
     @GetMapping("/match/log")
     public ResponseEntity<MatchDetailResponse> getMatchDetail(
             @RequestParam String matchId) {
+        log.info("getMatchDetail request matchId : " + matchId);
 
-        return null;
+        MatchDetailResponse response = gameAccountService.findMatchDetailByMatchId(matchId);
+
+        return ResponseEntity.ok(response);
     }
 }
