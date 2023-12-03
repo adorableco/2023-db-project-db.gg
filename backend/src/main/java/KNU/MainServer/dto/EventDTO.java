@@ -1,6 +1,6 @@
 package KNU.MainServer.dto;
 
-import KNU.MainServer.Type.EventType;
+import KNU.MainServer.type.EventType;
 import KNU.MainServer.domain.Event;
 import KNU.MainServer.domain.Item;
 import KNU.MainServer.domain.Participant;
