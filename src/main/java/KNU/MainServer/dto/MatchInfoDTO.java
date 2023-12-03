@@ -3,8 +3,6 @@ package KNU.MainServer.dto;
 import KNU.MainServer.domain.Champion;
 import KNU.MainServer.domain.Match;
 import KNU.MainServer.domain.Participant;
-import jakarta.servlet.http.Part;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,8 +17,8 @@ public class MatchInfoDTO {
     private Integer kills;
     private Integer deaths;
     private Integer assists;
-    private String selected_champion;
-    private String selected_champion_image;
+    private String selectedChampion;
+    private String selectedChampionImage;
 
     public static MatchInfoDTO from
             (Match match, Participant participant, Champion champion){
@@ -30,8 +28,8 @@ public class MatchInfoDTO {
                 .kills(participant.getKills())
                 .deaths(participant.getDeaths())
                 .assists(participant.getAssists())
-                .selected_champion(champion.getChampName())
-                .selected_champion_image(champion.getChampPhoto())
+                .selectedChampion(champion.getChampName())
+                .selectedChampionImage(champion.getChampPhoto())
                 .build();
     }
 

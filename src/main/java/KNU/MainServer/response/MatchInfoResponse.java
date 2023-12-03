@@ -10,5 +10,5 @@ import lombok.Getter;
 @Getter
 public class MatchInfoResponse {
     private GameAccountDTO gameAccount;
-    private List<MatchInfoDTO> matchInfos;
+    private List<MatchInfoDTO> matchInfo;
 }

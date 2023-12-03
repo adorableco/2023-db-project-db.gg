@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @Getter
 public class EventDTO {
 
-    private Long event_time;
+    private Long eventTime;
     private EventType eventType;
     private Long participantId;
 
     //    private Long item_name
     public static EventDTO from(Event event, Participant participant) {
         return EventDTO.builder()
-                .event_time(event.getTimestamp())
+                .eventTime(event.getTimestamp())
                 .eventType(event.getEventType())
                 .participantId(participant.getParticipantId())
                 .build();
