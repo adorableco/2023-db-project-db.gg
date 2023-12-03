@@ -78,9 +78,11 @@ public class SelectQueryEntityManager {
 
     public List<Object[]> findEventDetailByMatchId
             (String matchId) {
-        String sql = "SELECT e, p  FROM Match m "
+        String sql = "SELECT e, p, i  FROM Match m "
                 + "JOIN Event e ON e.match.uniqueMatchId  = m.uniqueMatchId "
                 + "JOIN Participant p ON e.participant.participantId = p.participantId "
+                + "LEFT JOIN Purchase pu ON pu.event.uniqueEventId = e.uniqueEventId "
+                + "LEFT JOIN Item i ON pu.item.itemId = i.itemId "
                 + "WHERE m.uniqueMatchId = :matchId";
 
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);

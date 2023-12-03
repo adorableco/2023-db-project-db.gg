@@ -3,6 +3,7 @@ package KNU.MainServer.service;
 import KNU.MainServer.domain.Champion;
 import KNU.MainServer.domain.Event;
 import KNU.MainServer.domain.GameAccount;
+import KNU.MainServer.domain.Item;
 import KNU.MainServer.domain.Match;
 import KNU.MainServer.domain.Participant;
 import KNU.MainServer.dto.EventDTO;
@@ -13,8 +14,11 @@ import KNU.MainServer.repository.SelectQueryEntityManager;
 import KNU.MainServer.response.GameAccountResponse;
 import KNU.MainServer.response.MatchDetailResponse;
 import KNU.MainServer.response.MatchInfoResponse;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -64,9 +68,15 @@ public class GameAccountService {
         List<Object[]> queryReturns =
                 selectQueryEntityManager.findParticipantDetailByMatchId(matchId);
         log.info("findParticipantDetailByMatchId : " + queryReturns.get(0)[2]);
+
+        List<Long> numbers = LongStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+
+        Collections.shuffle(numbers);
+        Iterator<Long> numberIterator = numbers.iterator();
+
         return queryReturns.stream()
                 .map(result -> ParticipantDTO.from((GameAccount) result[0],
-                        (Participant) result[1],
+                        numberIterator.next(),
                         (Champion) result[2]))
                 .collect(Collectors.toUnmodifiableList());
     }
@@ -76,7 +86,8 @@ public class GameAccountService {
                 selectQueryEntityManager.findEventDetailByMatchId(matchId);
         return queryReturns.stream()
                 .map(result -> EventDTO.from((Event) result[0],
-                        (Participant) result[1]))
+                        (Participant) result[1],
+                        (Item) result[2]))
                 .collect(Collectors.toUnmodifiableList());
     }
 }

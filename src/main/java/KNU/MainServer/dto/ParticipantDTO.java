@@ -2,7 +2,6 @@ package KNU.MainServer.dto;
 
 import KNU.MainServer.domain.Champion;
 import KNU.MainServer.domain.GameAccount;
-import KNU.MainServer.domain.Participant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,9 +19,9 @@ public class ParticipantDTO {
     private String selectedChampionImage;
 
 
-    public static ParticipantDTO from(GameAccount gameAccount, Participant participant, Champion champion) {
+    public static ParticipantDTO from(GameAccount gameAccount, Long participant, Champion champion) {
         return ParticipantDTO.builder()
-                .participantId(participant.getParticipantId())
+                .participantId(participant)
                 .summonerName(gameAccount.getGameName())
                 .selectedChampion(champion.getChampName())
                 .selectedChampionImage(champion.getChampPhoto())

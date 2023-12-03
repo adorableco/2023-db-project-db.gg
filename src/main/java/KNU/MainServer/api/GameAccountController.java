@@ -31,7 +31,7 @@ public class GameAccountController {
 
     @GetMapping("/match")
     public ResponseEntity<MatchInfoResponse> getMatchInfo(
-            @RequestParam String gameName) {
+            @RequestParam(name = "gameName") String gameName) {
 
         log.info("getMatchInfo input param [gameAccountId] : " + gameName);
 
@@ -43,7 +43,7 @@ public class GameAccountController {
 
     @GetMapping("/match/log")
     public ResponseEntity<MatchDetailResponse> getMatchDetail(
-            @RequestParam String matchId) {
+            @RequestParam(name = "matchId") String matchId) {
         log.info("getMatchDetail request matchId : " + matchId);
 
         MatchDetailResponse response = gameAccountService.findMatchDetailByMatchId(matchId);
