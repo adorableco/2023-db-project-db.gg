@@ -77,7 +77,7 @@ public class Phase2Repository {
                 + "SELECT m2.uniqueMatchId, m2.duration FROM Match m2 WHERE m2.uniqueMatchId LIKE :matchId";
 
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
-        query.setParameter("matchId", result.getUniqueMatchId().substring(0,5) + "%");
+        query.setParameter("matchId", result.getUniqueMatchId().substring(0,7) + "%");
 
         return query.getResultList();
     }
