@@ -1,76 +1,97 @@
-/* MatchDetailPage.css */
-
-.match-detail {
-  text-align: center;
-  margin: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.match-detail-page {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.match-detail h2 {
-  color: #343a40;
-  margin-bottom: 10px;
-}
-
-.match-info {
-  color: #495057;
-  font-size: 16px;
-  margin-bottom: 15px;
-}
-
-.match-info strong {
-  color: #212529;
-}
-
-.match-info p {
-  margin: 5px 0;
-}
-
-.match-info:last-child {
-  margin-bottom: 0;
-}
-
-h3 {
-  color: #343a40;
-  margin-top: 20px;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
+.participants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  min-width: 500px;
 }
 
 .participant {
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 8px;
+  text-align: center;
+}
+
+.champion-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.events {
+  max-width: 600px;
+  margin: auto;
+}
+
+.event {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.event h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.event p {
+  margin: 0;
+}
+
+
+.match-results {
+  background-color: #ffffff6e;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+  font-size: 14px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  margin-top: 50px;
+  position: fixed;
+  top: 0;
+  right: 4px;
   padding: 15px;
-  margin: 10px 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  max-width: 210px;
+  z-index: 1000;
+
 }
 
-.participant p {
+.match-result.winner {
+  background-color: #a3f5cf;
+  border-color: #4caf50; 
+  border-radius: 20px;
+  padding: 5px;
+  width: 200px;
+}
+
+.match-result {
+  margin-bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.match-results p {
   margin: 5px 0;
+  width: 200px;
+  
 }
 
-/* Color Palette */
-:root {
-  --primary: #3081D0; /* Blue */
-  --secondary: #F4F27E; /* Gray */
-  --success: #28a745; /* Green */
-  --danger: #dc3545; /* Red */
+.linkP{
+  cursor: pointer;
+  transition: all 0.3s;
+
+}
+.linkP:hover{
+  transform: scale(1.1);
+  color: #4caf50; 
+
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .match-detail {
-    margin: 10px;
-    padding: 10px;
-  }
-
-  .participant {
-    padding: 10px;
-  }
-}
