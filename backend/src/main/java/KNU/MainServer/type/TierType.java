@@ -1,4 +1,4 @@
-package KNU.MainServer.Type;
+package KNU.MainServer.type;
 
 public enum TierType {
     CHALLENGER,
