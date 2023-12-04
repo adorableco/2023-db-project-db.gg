@@ -4,7 +4,6 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SummonerListPage.css";
 
 const SummonerListPage = () => {
   const [summoners, setSummoners] = useState([
@@ -16,11 +15,12 @@ const SummonerListPage = () => {
   const navigate = useNavigate();
 
   const handleSummonerClick = (summonerId) => {
+    // 클릭한 소환사에 해당하는 SearchResultPage 경로로 이동
     navigate(`/search-result/${summonerId}`);
   };
 
   return (
-    <div className='summoner-list-container'>
+    <div>
       <h2>소환사 리스트</h2>
       <ul>
         {summoners.map((summoner) => (
