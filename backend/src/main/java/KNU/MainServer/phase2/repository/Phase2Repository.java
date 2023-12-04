@@ -48,4 +48,18 @@ public class Phase2Repository {
 
         return query.getResultList();
     }
+
+    public List<Object[]> findQuery7Result(String champName) {
+
+        String sql = "SELECT KILL, DEATH, ASSIST , CHAMP "
+                + "FROM (SELECT p.kills AS KILL, p.deaths AS DEATH, p.assists AS ASSIST, c.champName AS CHAMP "
+                + "FROM Participant p JOIN Champion c ON p.champion.uniqueChampId = c.uniqueChampId "
+                + "WHERE c.champName = :champName) "
+                + "ORDER BY CHAMP";
+
+        TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
+        query.setParameter("champName", champName);
+
+        return query.getResultList();
+    }
 }
