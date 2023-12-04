@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Query10DTO {
     private String matchId;
-    private Long duration;
+    private Integer duration;
 
     public static Query10DTO from
-            (String matchId, Long duration){
+            (String matchId, Integer duration){
         return Query10DTO.builder()
                 .matchId(matchId)
                 .duration(duration)

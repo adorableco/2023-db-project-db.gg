@@ -72,20 +72,19 @@ public class Phase2Repository {
 
         log.info("found Match : " + result);
 
-        String sql = "SELECT m.uniqueMatchId, m.duration FROM Match m WHERE m.duration < :matchDuration "
+        String sql = "SELECT m.uniqueMatchId, m.duration FROM Match m "
                 + "INTERSECT "
                 + "SELECT m2.uniqueMatchId, m2.duration FROM Match m2 WHERE m2.uniqueMatchId LIKE :matchId";
 
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
-        query.setParameter("matchDuration", result.getDuration());
-        query.setParameter("matchId", result.getUniqueMatchId().substring(0,9) + "%");
+        query.setParameter("matchId", result.getUniqueMatchId().substring(0,7) + "%");
 
         return query.getResultList();
     }
 
     public List<Object[]> findQuery13Result(Long duration) {
 
-        String sql = "SELECT t.isWin , t.teamId "
+        String sql = "SELECT t.isWin , t.teamId , t.match.duration "
                 + "FROM Team t "
                 + "WHERE t.teamId  IN ( SELECT t2.teamId "
                 + "FROM Team t2 JOIN Match m ON t2.match.uniqueMatchId = m.uniqueMatchId "
@@ -93,8 +92,8 @@ public class Phase2Repository {
                 + "ORDER BY t.teamId  ASC ";
 
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
-        query.setParameter("startTime", duration - 100);
-        query.setParameter("endTime", duration + 100);
+        query.setParameter("startTime", duration - 30);
+        query.setParameter("endTime", duration + 30);
 
         return query.getResultList();
     }
