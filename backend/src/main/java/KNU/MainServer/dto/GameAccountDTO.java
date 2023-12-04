@@ -1,6 +1,6 @@
 package KNU.MainServer.dto;
 
-import KNU.MainServer.Type.TierType;
+import KNU.MainServer.type.TierType;
 import KNU.MainServer.domain.GameAccount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

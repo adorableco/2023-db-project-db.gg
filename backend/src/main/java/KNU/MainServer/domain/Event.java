@@ -1,6 +1,6 @@
 package KNU.MainServer.domain;
 
-import KNU.MainServer.Type.EventType;
+import KNU.MainServer.type.EventType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
