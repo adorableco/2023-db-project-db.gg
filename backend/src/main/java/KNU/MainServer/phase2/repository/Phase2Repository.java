@@ -84,7 +84,7 @@ public class Phase2Repository {
 
     public List<Object[]> findQuery13Result(Long duration) {
 
-        String sql = "SELECT t.isWin , t.teamId "
+        String sql = "SELECT t.isWin , t.teamId , t.match.duration "
                 + "FROM Team t "
                 + "WHERE t.teamId  IN ( SELECT t2.teamId "
                 + "FROM Team t2 JOIN Match m ON t2.match.uniqueMatchId = m.uniqueMatchId "
@@ -92,8 +92,8 @@ public class Phase2Repository {
                 + "ORDER BY t.teamId  ASC ";
 
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
-        query.setParameter("startTime", duration - 100);
-        query.setParameter("endTime", duration + 100);
+        query.setParameter("startTime", duration - 30);
+        query.setParameter("endTime", duration + 30);
 
         return query.getResultList();
     }

@@ -82,7 +82,8 @@ public class Phase2Service {
         List<Query13DTO> response = query13Result.stream()
                 .map(result -> Query13DTO.from(
                         (Integer) result[0],
-                        (Long) result[1]))
+                        (Long) result[1],
+                        (Integer) result[2]))
                 .collect(Collectors.toUnmodifiableList());
 
         return new Query13Response(response);

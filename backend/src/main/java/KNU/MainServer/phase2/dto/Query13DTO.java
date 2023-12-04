@@ -12,12 +12,14 @@ import lombok.NoArgsConstructor;
 public class Query13DTO {
     private Integer isWin;
     private Long teamId;
+    private Integer duration;
 
     public static Query13DTO from
-            (Integer isWin, Long teamId){
+            (Integer isWin, Long teamId, Integer duration){
         return Query13DTO.builder()
                 .isWin(isWin)
                 .teamId(teamId)
+                .duration(duration)
                 .build();
     }
 }
