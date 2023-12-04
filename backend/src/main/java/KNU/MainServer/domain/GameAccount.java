@@ -1,6 +1,7 @@
 package KNU.MainServer.domain;
 
 
+import KNU.MainServer.Type.TierType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,7 +24,7 @@ public class GameAccount {
     private String gameName;
     private Integer accountLevel;
     @Enumerated(value = EnumType.STRING)
-    private tierType tier;
+    private TierType tier;
 
     @OneToMany(mappedBy = "gameAccount", fetch = FetchType.LAZY)
     private List<Participant> participants;
