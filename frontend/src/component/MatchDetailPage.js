@@ -1,17 +1,56 @@
 /** @format */
 
+// MatchDetailPage.js
+
 import React from "react";
 import { useParams } from "react-router-dom";
+import "./MatchDetailPage.css";
+
+const mockMatchData = {
+  summoner_name: "name",
+  summoner_tier: "Challenger",
+  summoner_level: 1,
+  match_info: [
+    {
+      match_id: "KR_6766621885",
+      kills: 1,
+      deaths: 2,
+      assists: 3,
+      selected_champion: 5,
+    },
+    {
+      match_id: "KR_6766621886",
+      kills: 2,
+      deaths: 1,
+      assists: 4,
+      selected_champion: 6,
+    },
+  ],
+};
 
 const MatchDetailPage = () => {
   const { matchId } = useParams();
-
-  // 매치에 대한 상세 정보 로직을 추가하세요. API 호출 등
+  const { summoner_name, summoner_tier, summoner_level, match_info } =
+    mockMatchData;
 
   return (
-    <div>
-      <h2>매치 상세 정보 - {matchId}</h2>
-      {/* 상세 정보를 표시하는 내용 추가 */}
+    <div className='match-detail'>
+      <h2>{summoner_name}</h2>
+      <p className='match-info'>티어: {summoner_tier}</p>
+      <p className='match-info'>레벨: {summoner_level}</p>
+
+      <h3>참가한 매치</h3>
+      <ul>
+        {match_info.map((match) => (
+          <li key={match.match_id} className='participant'>
+            <p style={{ fontWeight: "700" }}>매치 ID: {match.match_id}</p>
+            <p>Kills: {match.kills}</p>
+            <p>Deaths: {match.deaths}</p>
+            <p>Assists: {match.assists}</p>
+            <p>선택한 챔피언: {match.selected_champion}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
