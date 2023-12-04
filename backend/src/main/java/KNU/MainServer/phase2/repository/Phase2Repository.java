@@ -28,8 +28,24 @@ public class Phase2Repository {
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
         query.setParameter("kill", kill);
 
-        List<Object[]> result = query.getResultList();
+        return query.getResultList();
+    }
 
-        return result;
+    public List<Object[]> findQuery6Result(Long eventTime) {
+
+        String sql = "SELECT distinct e.eventType, e.timestamp, m.uniqueMatchId "
+                + "FROM Match m JOIN Event e "
+                + "ON m.uniqueMatchId  = e.match.uniqueMatchId "
+                + "WHERE e.uniqueEventId IN "
+                + "( SELECT e2.uniqueEventId "
+                + "FROM Event e2 "
+                + "WHERE e2.timestamp BETWEEN :startTime AND :endTime)\n"
+                + "ORDER BY e.eventType  ASC";
+
+        TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
+        query.setParameter("startTime", eventTime - 1000);
+        query.setParameter("endTime", eventTime + 1000);
+
+        return query.getResultList();
     }
 }

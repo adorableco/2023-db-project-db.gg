@@ -1,8 +1,10 @@
 package KNU.MainServer.phase2.api;
 
 import KNU.MainServer.phase2.response.Query3Response;
+import KNU.MainServer.phase2.response.Query6Response;
 import KNU.MainServer.phase2.service.Phase2Service;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,13 @@ public class Phase2Controller {
             @RequestParam(name = "kill") Integer kill){
 
         Query3Response response = phase2Service.findQuery3Response(kill);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/query6")
+    public ResponseEntity<Query6Response> getQuery6Result(
+            @RequestParam(name = "eventTime") Long eventTime){
+        Query6Response response =phase2Service.findQuery6Response(eventTime);
         return ResponseEntity.ok(response);
     }
 
