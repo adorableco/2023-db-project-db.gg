@@ -1,0 +1,30 @@
+/* ItemAverage.css */
+
+.item-average {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .item-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .item-container p {
+    margin: 0;
+  }
+
+
+.linkP{
+    cursor: pointer;
+    transition: all 0.3s;
+  
+  }
+  .linkP:hover{
+    transform: scale(1.1);
+    color: #4caf50; 
+  
+  }
+  
+  
