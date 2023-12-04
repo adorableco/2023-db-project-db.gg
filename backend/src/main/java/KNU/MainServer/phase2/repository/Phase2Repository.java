@@ -1,6 +1,7 @@
 package KNU.MainServer.phase2.repository;
 
 import KNU.MainServer.domain.GameAccount;
+import KNU.MainServer.domain.Match;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
@@ -59,6 +60,25 @@ public class Phase2Repository {
 
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
         query.setParameter("champName", champName);
+
+        return query.getResultList();
+    }
+
+    public List<Object[]> findQuery10Result(String matchId) {
+        String sql1 = "SELECT m FROM Match m WHERE m.uniqueMatchId = :matchId ";
+        TypedQuery<Match> query1 = em.createQuery(sql1, Match.class);
+        query1.setParameter("matchId", matchId);
+        Match result = query1.getSingleResult();
+
+        log.info("found Match : " + result);
+
+        String sql = "SELECT m.uniqueMatchId, m.duration FROM Match m WHERE m.duration < :matchDuration "
+                + "INTERSECT "
+                + "SELECT m2.uniqueMatchId, m2.duration FROM Match m2 WHERE m2.uniqueMatchId LIKE :matchId";
+
+        TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
+        query.setParameter("matchDuration", result.getDuration());
+        query.setParameter("matchId", result.getUniqueMatchId().substring(0,9) + "%");
 
         return query.getResultList();
     }

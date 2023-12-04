@@ -1,9 +1,11 @@
 package KNU.MainServer.phase2.service;
 
+import KNU.MainServer.phase2.dto.Query10DTO;
 import KNU.MainServer.phase2.dto.Query3DTO;
 import KNU.MainServer.phase2.dto.Query6DTO;
 import KNU.MainServer.phase2.dto.Query7DTO;
 import KNU.MainServer.phase2.repository.Phase2Repository;
+import KNU.MainServer.phase2.response.Query10Response;
 import KNU.MainServer.phase2.response.Query3Response;
 import KNU.MainServer.phase2.response.Query6Response;
 import KNU.MainServer.phase2.response.Query7Response;
@@ -57,5 +59,17 @@ public class Phase2Service {
                 .collect(Collectors.toUnmodifiableList());
 
         return new Query7Response(response);
+    }
+
+    public Query10Response findQuery10Response(
+            String matchId){
+        List<Object[]> query10Result = phase2Repository.findQuery10Result(matchId);
+        List<Query10DTO> response = query10Result.stream()
+                .map(result -> Query10DTO.from(
+                        (String) result[0],
+                        (Long) result[1]))
+                .collect(Collectors.toUnmodifiableList());
+
+        return new Query10Response(response);
     }
 }
