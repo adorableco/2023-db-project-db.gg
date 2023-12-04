@@ -1,6 +1,7 @@
 package KNU.MainServer.phase2.api;
 
 import KNU.MainServer.phase2.response.Query10Response;
+import KNU.MainServer.phase2.response.Query13Response;
 import KNU.MainServer.phase2.response.Query3Response;
 import KNU.MainServer.phase2.response.Query6Response;
 import KNU.MainServer.phase2.response.Query7Response;
@@ -43,6 +44,13 @@ public class Phase2Controller {
     public ResponseEntity<Query10Response> getQuery10Result
             (@RequestParam(name = "matchId") String matchId){
         Query10Response response =phase2Service.findQuery10Response(matchId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/query13")
+    public ResponseEntity<Query13Response> getQuery13Result
+            (@RequestParam(name = "duration") Long duration){
+        Query13Response response =phase2Service.findQuery13Response(duration);
         return ResponseEntity.ok(response);
     }
 

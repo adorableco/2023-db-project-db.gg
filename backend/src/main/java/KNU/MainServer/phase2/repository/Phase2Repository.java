@@ -82,4 +82,20 @@ public class Phase2Repository {
 
         return query.getResultList();
     }
+
+    public List<Object[]> findQuery13Result(Long duration) {
+
+        String sql = "SELECT t.isWin , t.teamId "
+                + "FROM Team t "
+                + "WHERE t.teamId  IN ( SELECT t2.teamId "
+                + "FROM Team t2 JOIN Match m ON t2.match.uniqueMatchId = m.uniqueMatchId "
+                + "WHERE m.duration BETWEEN :startTime AND :endTime) "
+                + "ORDER BY t.teamId  ASC ";
+
+        TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
+        query.setParameter("startTime", duration - 100);
+        query.setParameter("endTime", duration + 100);
+
+        return query.getResultList();
+    }
 }

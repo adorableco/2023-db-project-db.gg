@@ -1,15 +1,18 @@
 package KNU.MainServer.phase2.service;
 
 import KNU.MainServer.phase2.dto.Query10DTO;
+import KNU.MainServer.phase2.dto.Query13DTO;
 import KNU.MainServer.phase2.dto.Query3DTO;
 import KNU.MainServer.phase2.dto.Query6DTO;
 import KNU.MainServer.phase2.dto.Query7DTO;
 import KNU.MainServer.phase2.repository.Phase2Repository;
 import KNU.MainServer.phase2.response.Query10Response;
+import KNU.MainServer.phase2.response.Query13Response;
 import KNU.MainServer.phase2.response.Query3Response;
 import KNU.MainServer.phase2.response.Query6Response;
 import KNU.MainServer.phase2.response.Query7Response;
 import KNU.MainServer.type.EventType;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -71,5 +74,17 @@ public class Phase2Service {
                 .collect(Collectors.toUnmodifiableList());
 
         return new Query10Response(response);
+    }
+
+    public Query13Response findQuery13Response(
+            Long duration){
+        List<Object[]> query13Result = phase2Repository.findQuery13Result(duration);
+        List<Query13DTO> response = query13Result.stream()
+                .map(result -> Query13DTO.from(
+                        (Integer) result[0],
+                        (Long) result[1]))
+                .collect(Collectors.toUnmodifiableList());
+
+        return new Query13Response(response);
     }
 }
