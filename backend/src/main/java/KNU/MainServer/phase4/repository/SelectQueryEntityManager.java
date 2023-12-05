@@ -1,6 +1,6 @@
-package KNU.MainServer.repository;
+package KNU.MainServer.phase4.repository;
 
-import KNU.MainServer.domain.GameAccount;
+import KNU.MainServer.global.domain.GameAccount;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;

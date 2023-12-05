@@ -1,4 +1,4 @@
-package KNU.MainServer.domain;
+package KNU.MainServer.global.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

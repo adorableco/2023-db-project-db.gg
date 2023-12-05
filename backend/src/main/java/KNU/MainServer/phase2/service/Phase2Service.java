@@ -11,7 +11,7 @@ import KNU.MainServer.phase2.response.Query13Response;
 import KNU.MainServer.phase2.response.Query3Response;
 import KNU.MainServer.phase2.response.Query6Response;
 import KNU.MainServer.phase2.response.Query7Response;
-import KNU.MainServer.type.EventType;
+import KNU.MainServer.global.type.EventType;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

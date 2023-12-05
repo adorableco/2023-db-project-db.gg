@@ -1,7 +1,7 @@
-package KNU.MainServer.dto;
+package KNU.MainServer.phase4.dto;
 
-import KNU.MainServer.domain.Champion;
-import KNU.MainServer.domain.GameAccount;
+import KNU.MainServer.global.domain.Champion;
+import KNU.MainServer.global.domain.GameAccount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

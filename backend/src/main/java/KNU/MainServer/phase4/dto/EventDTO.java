@@ -1,9 +1,9 @@
-package KNU.MainServer.dto;
+package KNU.MainServer.phase4.dto;
 
-import KNU.MainServer.type.EventType;
-import KNU.MainServer.domain.Event;
-import KNU.MainServer.domain.Item;
-import KNU.MainServer.domain.Participant;
+import KNU.MainServer.global.type.EventType;
+import KNU.MainServer.global.domain.Event;
+import KNU.MainServer.global.domain.Item;
+import KNU.MainServer.global.domain.Participant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

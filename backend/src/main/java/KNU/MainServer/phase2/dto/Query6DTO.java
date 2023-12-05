@@ -1,6 +1,6 @@
 package KNU.MainServer.phase2.dto;
 
-import KNU.MainServer.type.EventType;
+import KNU.MainServer.global.type.EventType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

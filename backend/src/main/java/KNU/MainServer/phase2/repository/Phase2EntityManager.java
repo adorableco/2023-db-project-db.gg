@@ -1,6 +1,6 @@
 package KNU.MainServer.phase2.repository;
 
-import KNU.MainServer.domain.Match;
+import KNU.MainServer.global.domain.Match;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
