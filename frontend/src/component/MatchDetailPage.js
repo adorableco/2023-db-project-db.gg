@@ -6,29 +6,23 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./MatchDetailPage.css";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { Audio } from "react-loader-spinner";
 
 const MatchDetailPage = () => {
   const [matchDetails, setMatchDetails] = useState({});
   const { matchId } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [matchResults, setMatchResults] = useState([]);
   const [matchAnalysis, setMatchAnalysis] = useState([]);
-  const mockItem = {
-    events: [
-      {
-        eventTime: "게임내 시간",
-        eventType: "CHAMPION_KILL",
-        participantId: 1, // 위에 summoner아이디랑 같은값.
-        itemName: "아이템이름",
-      },
-      {
-        eventTime: "게임내 시간",
-        eventType: "CHAMPION_KILL",
-        participantId: 1, // 위에 summoner아이디랑 같은값.
-        itemName: "아이템이름",
-      },
-    ],
+
+  const [currentPage, setCurrentPage] = useState(1); // 추가: 현재 페이지 상태
+  const eventsPerPage = 20; // 추가: 페이지당 이벤트 수
+
+  // 페이지 변경 이벤트 핸들러
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   const handleSameChamp = (e, champName) => {
@@ -85,7 +79,7 @@ const MatchDetailPage = () => {
 
   return (
     <div className='match-detail-page'>
-      <h1>매치 상세 정보</h1>
+      <h2>매치 상세 정보</h2>
 
       <div className='match-results' style={{ left: "4px" }}>
         <h4 style={{ marginBottom: "0px" }}>비슷한 시간대의 진행된</h4>
@@ -108,7 +102,7 @@ const MatchDetailPage = () => {
         ))}
       </div>
 
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ flexDirection: "row" }}>
         <div className='participants'>
           {matchDetails.summoners &&
             matchDetails.summoners.map((summoner) => (
@@ -157,19 +151,58 @@ const MatchDetailPage = () => {
         </div>
       </div>
       <div className='events'>
-        <h2>Events</h2>
-        {mockItem &&
-          mockItem.events.map((event, index) => (
-            <div key={index} className='event'>
-              <p>{event.eventTime}</p>
-              <p>{event.eventType}</p>
-              <p>{event.participantId}</p>
-              {event.eventType === "ITEM_PURCHASED" ? (
-                <p>{event.itemName}</p>
-              ) : null}
-            </div>
-          ))}
+        <h2>이벤트</h2>
+        <h4>
+          이벤트 항목을 누르면 그 이벤트와 일어난 시간이 비슷한 이벤트를 볼 수
+          있습니다.
+        </h4>
+        {matchDetails.events &&
+          matchDetails.events
+            .slice(
+              (currentPage - 1) * eventsPerPage,
+              currentPage * eventsPerPage,
+            )
+            .map((event, index) => (
+              <div className='event'>
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  key={index}
+                  to={{
+                    pathname: `/event/${event.eventTime}`,
+                  }}
+                >
+                  <p style={{ fontWeight: "800" }}>
+                    참가자 {event.participantId} 님의 {event.eventType}
+                  </p>
+                  <p>이벤트가 일어난 시간 : {event.eventTime} (초)</p>
+                  {event.eventType === "ITEM_PURCHASED" ? (
+                    <p>구매한 아이템 : {event.itemName}</p>
+                  ) : null}
+                </Link>
+              </div>
+            ))}
       </div>
+
+      <ul className='pagination'>
+        {matchDetails.events &&
+          Array.from(
+            {
+              length: Math.ceil(matchDetails.events.length / eventsPerPage),
+            },
+            (_, index) => (
+              <li
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                style={{
+                  fontSize: "16px",
+                  fontWeight: currentPage === index + 1 ? "bold" : "normal",
+                }}
+              >
+                {index + 1}
+              </li>
+            ),
+          )}
+      </ul>
     </div>
   );
 };

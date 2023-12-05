@@ -12,6 +12,7 @@ import EditUser from "./component/EditUser";
 import EditItem from "./component/EditItem";
 import ItemAverage from "./component/ItemAverage";
 import Champion from "./component/Champion";
+import Event from "./component/Event";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path='/item_edit' element={<EditItem />} />
         <Route path='/item_average/:kills' element={<ItemAverage />} />
         <Route path='/champ/:champName' element={<Champion />} />
+        <Route path='/event/:eventTime' element={<Event />} />
       </Routes>
     </div>
   );

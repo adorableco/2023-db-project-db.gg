@@ -1,20 +1,26 @@
 .match-detail-page {
   max-width: 800px;
   margin: 0 auto;
+
 }
 
 .participants {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  min-width: 300px;
   justify-content: center;
 }
 
 .participant {
   text-align: center;
-  max-width: 250px;
+  min-width: 200px;
+  max-width: 258px;
 }
+
+.participant_list {
+  text-align: center;
+}
+
 
 .champion-image {
   width: 100px;
@@ -33,6 +39,18 @@
   padding: 10px;
   margin-bottom: 10px;
   background-color: #f9f9f9;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  font-weight: 800;
+  transition: all 0.3s;
+
+}
+
+.event:hover{
+  transform: scale(1.1);
+  color: #4caf50; 
+
 }
 
 .event h2 {
@@ -60,9 +78,6 @@
   width: fit-content;
   max-width: 210px;
   z-index: 1000;
-  max-height: 600px;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
 
 }
 
@@ -89,14 +104,31 @@
   
 }
 
-.linkP{
+
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  margin-left: 18%;
+}
+
+.pagination li {
+  margin-right: 5px;
   cursor: pointer;
-  transition: all 0.3s;
-
-}
-.linkP:hover{
-  transform: scale(1.1);
-  color: #4caf50; 
-
 }
 
+.linkP_event{
+    cursor: pointer;
+    font-weight: 800;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: inherit;
+  
+  }
+  .linkP_event :hover{
+    transform: scale(1.1);
+    color: #4caf50; 
+  
+  }
