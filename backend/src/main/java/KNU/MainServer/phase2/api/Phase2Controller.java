@@ -7,7 +7,6 @@ import KNU.MainServer.phase2.response.Query6Response;
 import KNU.MainServer.phase2.response.Query7Response;
 import KNU.MainServer.phase2.service.Phase2Service;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,8 +48,8 @@ public class Phase2Controller {
 
     @GetMapping("/query13")
     public ResponseEntity<Query13Response> getQuery13Result
-            (@RequestParam(name = "duration") Long duration){
-        Query13Response response =phase2Service.findQuery13Response(duration);
+            (@RequestParam(name = "matchId") String matchId){
+        Query13Response response =phase2Service.findQuery13Response(matchId);
         return ResponseEntity.ok(response);
     }
 

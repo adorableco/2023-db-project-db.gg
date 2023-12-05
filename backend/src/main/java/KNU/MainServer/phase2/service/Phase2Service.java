@@ -76,8 +76,8 @@ public class Phase2Service {
     }
 
     public Query13Response findQuery13Response(
-            Long duration){
-        List<Object[]> query13Result = phase2EntityManager.findQuery13Result(duration);
+            String matchId){
+        List<Object[]> query13Result = phase2EntityManager.findQuery13Result(matchId);
         List<Query13DTO> response = query13Result.stream()
                 .map(result -> Query13DTO.from(
                         (Integer) result[0],

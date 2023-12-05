@@ -86,19 +86,27 @@ public class Phase2EntityManager {
         return query.getResultList();
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public List<Object[]> findQuery13Result(Long duration) {
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public List<Object[]> findQuery13Result(String matchId) {
+        String sql1 = "SELECT m "
+                + "FROM Match m "
+                + "WHERE m.uniqueMatchId = :matchId ";
+
+        TypedQuery<Match> query1 = em.createQuery(sql1, Match.class);
+        query1.setParameter("matchId", matchId);
+        Match match = query1.getSingleResult();
+
 
         String sql = "SELECT t.isWin , t.teamId , t.match.duration "
                 + "FROM Team t "
                 + "WHERE t.teamId  IN ( SELECT t2.teamId "
                 + "FROM Team t2 JOIN Match m ON t2.match.uniqueMatchId = m.uniqueMatchId "
-                + "WHERE m.duration BETWEEN :startTime AND :endTime) "
+                + "WHERE m.duration BETWEEN :startTime AND :endTime ) "
                 + "ORDER BY t.teamId  ASC ";
 
         TypedQuery<Object[]> query = em.createQuery(sql, Object[].class);
-        query.setParameter("startTime", duration - 30);
-        query.setParameter("endTime", duration + 30);
+        query.setParameter("startTime", match.getDuration() - 30 );
+        query.setParameter("endTime", match.getDuration() + 30 );
 
         return query.getResultList();
     }
