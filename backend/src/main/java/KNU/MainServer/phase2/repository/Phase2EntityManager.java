@@ -1,11 +1,9 @@
 package KNU.MainServer.phase2.repository;
 
-import KNU.MainServer.domain.GameAccount;
 import KNU.MainServer.domain.Match;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
-import javax.swing.text.html.parser.Entity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -15,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class Phase2Repository {
+public class Phase2EntityManager {
     private final EntityManager em;
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)

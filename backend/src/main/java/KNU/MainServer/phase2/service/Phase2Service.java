@@ -5,14 +5,13 @@ import KNU.MainServer.phase2.dto.Query13DTO;
 import KNU.MainServer.phase2.dto.Query3DTO;
 import KNU.MainServer.phase2.dto.Query6DTO;
 import KNU.MainServer.phase2.dto.Query7DTO;
-import KNU.MainServer.phase2.repository.Phase2Repository;
+import KNU.MainServer.phase2.repository.Phase2EntityManager;
 import KNU.MainServer.phase2.response.Query10Response;
 import KNU.MainServer.phase2.response.Query13Response;
 import KNU.MainServer.phase2.response.Query3Response;
 import KNU.MainServer.phase2.response.Query6Response;
 import KNU.MainServer.phase2.response.Query7Response;
 import KNU.MainServer.type.EventType;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +22,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class Phase2Service {
-    private final Phase2Repository phase2Repository;
+    private final Phase2EntityManager phase2EntityManager;
 
     public Query3Response findQuery3Response(
             Integer kill){
-        List<Object[]> query3Result = phase2Repository.findQuery3Result(kill);
+        List<Object[]> query3Result = phase2EntityManager.findQuery3Result(kill);
 
         List<Query3DTO> response = query3Result.stream()
                 .map(result -> Query3DTO.from((String) result[0],
@@ -39,7 +38,7 @@ public class Phase2Service {
 
     public Query6Response findQuery6Response(
             Long eventTime){
-        List<Object[]> query6Result = phase2Repository.findQuery6Result(eventTime);
+        List<Object[]> query6Result = phase2EntityManager.findQuery6Result(eventTime);
         List<Query6DTO> response = query6Result.stream()
                 .map(result -> Query6DTO.from(
                         (EventType) result[0],
@@ -52,7 +51,7 @@ public class Phase2Service {
 
     public Query7Response findQuery7Response(
             String champName){
-        List<Object[]> query7Result = phase2Repository.findQuery7Result(champName);
+        List<Object[]> query7Result = phase2EntityManager.findQuery7Result(champName);
         List<Query7DTO> response = query7Result.stream()
                 .map(result -> Query7DTO.from(
                         (Integer) result[0],
@@ -66,7 +65,7 @@ public class Phase2Service {
 
     public Query10Response findQuery10Response(
             String matchId){
-        List<Object[]> query10Result = phase2Repository.findQuery10Result(matchId);
+        List<Object[]> query10Result = phase2EntityManager.findQuery10Result(matchId);
         List<Query10DTO> response = query10Result.stream()
                 .map(result -> Query10DTO.from(
                         (String) result[0],
@@ -78,7 +77,7 @@ public class Phase2Service {
 
     public Query13Response findQuery13Response(
             Long duration){
-        List<Object[]> query13Result = phase2Repository.findQuery13Result(duration);
+        List<Object[]> query13Result = phase2EntityManager.findQuery13Result(duration);
         List<Query13DTO> response = query13Result.stream()
                 .map(result -> Query13DTO.from(
                         (Integer) result[0],
