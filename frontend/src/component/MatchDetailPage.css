@@ -7,11 +7,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  min-width: 500px;
+  min-width: 300px;
+  justify-content: center;
 }
 
 .participant {
   text-align: center;
+  max-width: 250px;
 }
 
 .champion-image {
@@ -58,6 +60,9 @@
   width: fit-content;
   max-width: 210px;
   z-index: 1000;
+  max-height: 600px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 
 }
 

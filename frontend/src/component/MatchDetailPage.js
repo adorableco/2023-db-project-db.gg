@@ -56,31 +56,13 @@ const MatchDetailPage = () => {
 
     const fetchMatchAnalysis = async () => {
       try {
-        // 나중에 API 호출 코드 추가
-        // ENDPOINT: /phase2/query10
-        // RequestParam : matchId (매치아이디)
-        // EXAMPLE: localhost:8080/phase2/query10?matchId=KR_6757446932
-
-        const mockResults = [
-          {
-            matchId: "KR_6763219751",
-            duration: 1898,
-          },
-          {
-            matchId: "KR_6763430254",
-            duration: 2072,
-          },
-          {
-            matchId: "KR_6763445311",
-            duration: 1215,
-          },
-          {
-            matchId: "KR_6763453695",
-            duration: 1163,
-          },
-        ];
-
-        setMatchAnalysis(mockResults);
+        await axios
+          .get(`/phase2/query10?matchId=${matchId}`, {
+            matchId: matchDetails.matchId,
+          })
+          .then((res) => {
+            setMatchAnalysis(res.data.response);
+          });
       } catch (error) {
         console.error("Error fetching match analysis:", error);
       }
@@ -88,17 +70,9 @@ const MatchDetailPage = () => {
 
     const fetchMatchResults = async () => {
       try {
-        // 나중에 API 호출 코드 추가
-        // ENDPOINT: /phase2/query13
-        //RequestParam :  duration (진행시간)
-        //EXAMPLE: localhost:8080/phase2/query13?duration=1100
-
-        // 현재는 mock 데이터 사용
-        const mockResults = [
-          { isWin: 1, teamId: 253, duration: 1122 },
-          { isWin: 0, teamId: 254, duration: 1122 },
-        ];
-        setMatchResults(mockResults);
+        await axios.get(`/phase2/query13?duration=1100`).then((res) => {
+          setMatchResults(res.data.response);
+        });
       } catch (error) {
         console.error("Error fetching match results:", error);
       }
@@ -111,7 +85,7 @@ const MatchDetailPage = () => {
 
   return (
     <div className='match-detail-page'>
-      <h2>Match Details</h2>
+      <h1>매치 상세 정보</h1>
 
       <div className='match-results' style={{ left: "4px" }}>
         <h4 style={{ marginBottom: "0px" }}>비슷한 시간대의 진행된</h4>
@@ -160,7 +134,8 @@ const MatchDetailPage = () => {
                       handleSameChamp(e, summoner.selectedChampion);
                     }}
                   >
-                    같은 챔피언을 사용한 소환사 보기
+                    같은 챔피언을 사용한
+                    <br /> 소환사 보기
                   </button>
                 </div>
               </div>
