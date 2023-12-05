@@ -19,7 +19,7 @@ public class SelectQueryEntityManager {
     private final EntityManager em;
 
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<GameAccount> getGameAccountBySimilarName
             (String name) {
         String sql = "SELECT ga FROM GameAccount ga WHERE ga.gameName LIKE :gameName";
@@ -66,6 +66,7 @@ public class SelectQueryEntityManager {
         return query.getResultList();
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Object[]> findParticipantDetailByMatchId
             (String matchId) {
         String sql = "SELECT ga, p, c  FROM Match m "
@@ -80,6 +81,7 @@ public class SelectQueryEntityManager {
         return query.getResultList();
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Object[]> findEventDetailByMatchId
             (String matchId) {
         String sql = "SELECT e, p, i  FROM Match m "

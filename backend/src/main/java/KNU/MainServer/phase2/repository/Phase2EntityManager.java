@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class Phase2EntityManager {
     private final EntityManager em;
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Object[]> findQuery3Result(Integer kill){
         String sql = "SELECT e.match.uniqueMatchId, count(e.uniqueEventId) "
                 + "FROM Participant p, Event e, Team t "
@@ -33,7 +33,7 @@ public class Phase2EntityManager {
         return query.getResultList();
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Object[]> findQuery6Result(Long eventTime) {
 
         String sql = "SELECT distinct e.eventType, e.timestamp, m.uniqueMatchId "
@@ -52,7 +52,7 @@ public class Phase2EntityManager {
         return query.getResultList();
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Object[]> findQuery7Result(String champName) {
 
         String sql = "SELECT KILL, DEATH, ASSIST , CHAMP "
@@ -67,7 +67,7 @@ public class Phase2EntityManager {
         return query.getResultList();
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Object[]> findQuery10Result(String matchId) {
         String sql1 = "SELECT m FROM Match m WHERE m.uniqueMatchId = :matchId ";
         TypedQuery<Match> query1 = em.createQuery(sql1, Match.class);
