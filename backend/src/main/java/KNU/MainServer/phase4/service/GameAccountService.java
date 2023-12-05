@@ -42,7 +42,7 @@ public class GameAccountService {
     }
 
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public MatchInfoResponse findGameAccountIdByName(String gameName) {
         GameAccount gameAccount = selectQueryEntityManager
                 .getGameAccountByName(gameName);
@@ -62,7 +62,7 @@ public class GameAccountService {
     }
 
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public MatchDetailResponse findMatchDetailByMatchId(String matchId) {
         List<ParticipantDTO> participants = findParticipantDetailByMatchId(matchId);
         List<EventDTO> events = findEventDetailByMatchId(matchId);
