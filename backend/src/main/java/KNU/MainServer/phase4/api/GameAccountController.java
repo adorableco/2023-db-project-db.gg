@@ -1,10 +1,10 @@
-package KNU.MainServer.api;
+package KNU.MainServer.phase4.api;
 
 
-import KNU.MainServer.response.GameAccountResponse;
-import KNU.MainServer.response.MatchDetailResponse;
-import KNU.MainServer.response.MatchInfoResponse;
-import KNU.MainServer.service.GameAccountService;
+import KNU.MainServer.phase4.response.GameAccountResponse;
+import KNU.MainServer.phase4.response.MatchDetailResponse;
+import KNU.MainServer.phase4.response.MatchInfoResponse;
+import KNU.MainServer.phase4.service.GameAccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

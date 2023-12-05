@@ -1,19 +1,19 @@
-package KNU.MainServer.service;
+package KNU.MainServer.phase4.service;
 
-import KNU.MainServer.domain.Champion;
-import KNU.MainServer.domain.Event;
-import KNU.MainServer.domain.GameAccount;
-import KNU.MainServer.domain.Item;
-import KNU.MainServer.domain.Match;
-import KNU.MainServer.domain.Participant;
-import KNU.MainServer.dto.EventDTO;
-import KNU.MainServer.dto.GameAccountDTO;
-import KNU.MainServer.dto.MatchInfoDTO;
-import KNU.MainServer.dto.ParticipantDTO;
-import KNU.MainServer.repository.SelectQueryEntityManager;
-import KNU.MainServer.response.GameAccountResponse;
-import KNU.MainServer.response.MatchDetailResponse;
-import KNU.MainServer.response.MatchInfoResponse;
+import KNU.MainServer.global.domain.Champion;
+import KNU.MainServer.global.domain.Event;
+import KNU.MainServer.global.domain.GameAccount;
+import KNU.MainServer.global.domain.Item;
+import KNU.MainServer.global.domain.Match;
+import KNU.MainServer.global.domain.Participant;
+import KNU.MainServer.phase4.dto.EventDTO;
+import KNU.MainServer.phase4.dto.GameAccountDTO;
+import KNU.MainServer.phase4.dto.MatchInfoDTO;
+import KNU.MainServer.phase4.dto.ParticipantDTO;
+import KNU.MainServer.phase4.response.GameAccountResponse;
+import KNU.MainServer.phase4.response.MatchDetailResponse;
+import KNU.MainServer.phase4.repository.SelectQueryEntityManager;
+import KNU.MainServer.phase4.response.MatchInfoResponse;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +22,8 @@ import java.util.stream.LongStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -39,6 +41,8 @@ public class GameAccountService {
                         .collect(Collectors.toUnmodifiableList()));
     }
 
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public MatchInfoResponse findGameAccountIdByName(String gameName) {
         GameAccount gameAccount = selectQueryEntityManager
                 .getGameAccountByName(gameName);
@@ -58,6 +62,7 @@ public class GameAccountService {
     }
 
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public MatchDetailResponse findMatchDetailByMatchId(String matchId) {
         List<ParticipantDTO> participants = findParticipantDetailByMatchId(matchId);
         List<EventDTO> events = findEventDetailByMatchId(matchId);

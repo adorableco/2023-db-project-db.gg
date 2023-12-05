@@ -1,6 +1,6 @@
-package KNU.MainServer.response;
+package KNU.MainServer.phase4.response;
 
-import KNU.MainServer.dto.GameAccountDTO;
+import KNU.MainServer.phase4.dto.GameAccountDTO;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

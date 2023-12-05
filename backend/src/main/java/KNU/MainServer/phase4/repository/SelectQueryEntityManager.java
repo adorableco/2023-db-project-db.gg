@@ -1,6 +1,6 @@
-package KNU.MainServer.repository;
+package KNU.MainServer.phase4.repository;
 
-import KNU.MainServer.domain.GameAccount;
+import KNU.MainServer.global.domain.GameAccount;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
@@ -9,6 +9,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Slf4j
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Repository;
 public class SelectQueryEntityManager {
     private final EntityManager em;
 
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<GameAccount> getGameAccountBySimilarName
             (String name) {
         String sql = "SELECT ga FROM GameAccount ga WHERE ga.gameName LIKE :gameName";
@@ -62,6 +66,7 @@ public class SelectQueryEntityManager {
         return query.getResultList();
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Object[]> findParticipantDetailByMatchId
             (String matchId) {
         String sql = "SELECT ga, p, c  FROM Match m "
@@ -76,6 +81,7 @@ public class SelectQueryEntityManager {
         return query.getResultList();
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Object[]> findEventDetailByMatchId
             (String matchId) {
         String sql = "SELECT e, p, i  FROM Match m "
