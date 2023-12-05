@@ -1,7 +1,7 @@
-package KNU.MainServer.domain;
+package KNU.MainServer.global.domain;
 
 
-import KNU.MainServer.type.TierType;
+import KNU.MainServer.global.type.TierType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

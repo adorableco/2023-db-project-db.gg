@@ -1,21 +1,22 @@
 package KNU.MainServer.phase2.repository;
 
-import KNU.MainServer.domain.GameAccount;
-import KNU.MainServer.domain.Match;
+import KNU.MainServer.global.domain.Match;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
-import javax.swing.text.html.parser.Entity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class Phase2Repository {
+public class Phase2EntityManager {
     private final EntityManager em;
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public List<Object[]> findQuery3Result(Integer kill){
         String sql = "SELECT e.match.uniqueMatchId, count(e.uniqueEventId) "
                 + "FROM Participant p, Event e, Team t "
@@ -32,6 +33,7 @@ public class Phase2Repository {
         return query.getResultList();
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public List<Object[]> findQuery6Result(Long eventTime) {
 
         String sql = "SELECT distinct e.eventType, e.timestamp, m.uniqueMatchId "
@@ -50,6 +52,7 @@ public class Phase2Repository {
         return query.getResultList();
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public List<Object[]> findQuery7Result(String champName) {
 
         String sql = "SELECT KILL, DEATH, ASSIST , CHAMP "
@@ -64,6 +67,7 @@ public class Phase2Repository {
         return query.getResultList();
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public List<Object[]> findQuery10Result(String matchId) {
         String sql1 = "SELECT m FROM Match m WHERE m.uniqueMatchId = :matchId ";
         TypedQuery<Match> query1 = em.createQuery(sql1, Match.class);
@@ -82,6 +86,7 @@ public class Phase2Repository {
         return query.getResultList();
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public List<Object[]> findQuery13Result(Long duration) {
 
         String sql = "SELECT t.isWin , t.teamId , t.match.duration "

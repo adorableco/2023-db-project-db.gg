@@ -1,4 +1,4 @@
-package KNU.MainServer.type;
+package KNU.MainServer.global.type;
 
 public enum EventType {
 

@@ -1,7 +1,7 @@
-package KNU.MainServer.response;
+package KNU.MainServer.phase4.response;
 
-import KNU.MainServer.dto.EventDTO;
-import KNU.MainServer.dto.ParticipantDTO;
+import KNU.MainServer.phase4.dto.EventDTO;
+import KNU.MainServer.phase4.dto.ParticipantDTO;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
