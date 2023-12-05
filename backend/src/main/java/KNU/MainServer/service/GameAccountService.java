@@ -22,6 +22,8 @@ import java.util.stream.LongStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -39,6 +41,8 @@ public class GameAccountService {
                         .collect(Collectors.toUnmodifiableList()));
     }
 
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public MatchInfoResponse findGameAccountIdByName(String gameName) {
         GameAccount gameAccount = selectQueryEntityManager
                 .getGameAccountByName(gameName);
@@ -58,6 +62,7 @@ public class GameAccountService {
     }
 
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public MatchDetailResponse findMatchDetailByMatchId(String matchId) {
         List<ParticipantDTO> participants = findParticipantDetailByMatchId(matchId);
         List<EventDTO> events = findEventDetailByMatchId(matchId);
