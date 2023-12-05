@@ -74,14 +74,9 @@ public class GameAccountService {
                 selectQueryEntityManager.findParticipantDetailByMatchId(matchId);
         log.info("findParticipantDetailByMatchId : " + queryReturns.get(0)[2]);
 
-        List<Long> numbers = LongStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
-
-        Collections.shuffle(numbers);
-        Iterator<Long> numberIterator = numbers.iterator();
-
         return queryReturns.stream()
                 .map(result -> ParticipantDTO.from((GameAccount) result[0],
-                        numberIterator.next(),
+                        (Participant) result[1],
                         (Champion) result[2]))
                 .collect(Collectors.toUnmodifiableList());
     }
