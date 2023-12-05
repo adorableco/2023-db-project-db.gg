@@ -6,40 +6,27 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./MatchDetailPage.css";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { Audio } from "react-loader-spinner";
 
 const MatchDetailPage = () => {
   const [matchDetails, setMatchDetails] = useState({});
   const { matchId } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [matchResults, setMatchResults] = useState([]);
   const [matchAnalysis, setMatchAnalysis] = useState([]);
-  const mockItem = {
-    events: [
-      {
-        eventTime: "게임내 시간",
-        eventType: "CHAMPION_KILL",
-        participantId: 1, // 위에 summoner아이디랑 같은값.
-        itemName: "아이템이름",
-      },
-      {
-        eventTime: "게임내 시간",
-        eventType: "CHAMPION_KILL",
-        participantId: 1, // 위에 summoner아이디랑 같은값.
-        itemName: "아이템이름",
-      },
-    ],
+
+  const [currentPage, setCurrentPage] = useState(1); // 추가: 현재 페이지 상태
+  const eventsPerPage = 20; // 추가: 페이지당 이벤트 수
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   const handleSameChamp = (e, champName) => {
     e.preventDefault();
     navigate(`/champ/${champName}`);
-  };
-
-  const getRandomImage = () => {
-    const randomImageWidth = Math.floor(Math.random() * 400) + 200;
-    const randomImageHeight = Math.floor(Math.random() * 400) + 200;
-    return `https://picsum.photos/${randomImageWidth}/${randomImageHeight}`;
   };
 
   useEffect(() => {
@@ -56,31 +43,13 @@ const MatchDetailPage = () => {
 
     const fetchMatchAnalysis = async () => {
       try {
-        // 나중에 API 호출 코드 추가
-        // ENDPOINT: /phase2/query10
-        // RequestParam : matchId (매치아이디)
-        // EXAMPLE: localhost:8080/phase2/query10?matchId=KR_6757446932
-
-        const mockResults = [
-          {
-            matchId: "KR_6763219751",
-            duration: 1898,
-          },
-          {
-            matchId: "KR_6763430254",
-            duration: 2072,
-          },
-          {
-            matchId: "KR_6763445311",
-            duration: 1215,
-          },
-          {
-            matchId: "KR_6763453695",
-            duration: 1163,
-          },
-        ];
-
-        setMatchAnalysis(mockResults);
+        await axios
+          .get(`/phase2/query10?matchId=${matchId}`, {
+            matchId: matchDetails.matchId,
+          })
+          .then((res) => {
+            setMatchAnalysis(res.data.response);
+          });
       } catch (error) {
         console.error("Error fetching match analysis:", error);
       }
@@ -88,17 +57,9 @@ const MatchDetailPage = () => {
 
     const fetchMatchResults = async () => {
       try {
-        // 나중에 API 호출 코드 추가
-        // ENDPOINT: /phase2/query13
-        //RequestParam :  duration (진행시간)
-        //EXAMPLE: localhost:8080/phase2/query13?duration=1100
-
-        // 현재는 mock 데이터 사용
-        const mockResults = [
-          { isWin: 1, teamId: 253, duration: 1122 },
-          { isWin: 0, teamId: 254, duration: 1122 },
-        ];
-        setMatchResults(mockResults);
+        await axios.get(`/phase2/query13?duration=1100`).then((res) => {
+          setMatchResults(res.data.response);
+        });
       } catch (error) {
         console.error("Error fetching match results:", error);
       }
@@ -111,7 +72,7 @@ const MatchDetailPage = () => {
 
   return (
     <div className='match-detail-page'>
-      <h2>Match Details</h2>
+      <h2>매치 상세 정보</h2>
 
       <div className='match-results' style={{ left: "4px" }}>
         <h4 style={{ marginBottom: "0px" }}>비슷한 시간대의 진행된</h4>
@@ -134,13 +95,13 @@ const MatchDetailPage = () => {
         ))}
       </div>
 
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ flexDirection: "row" }}>
         <div className='participants'>
           {matchDetails.summoners &&
             matchDetails.summoners.map((summoner) => (
               <div key={summoner.participantId} className='participant'>
                 <img
-                  src={getRandomImage()}
+                  src={`/img/${summoner.selectedChampionImage}`}
                   alt={summoner.selectedChampion}
                   className='champion-image'
                 />
@@ -160,7 +121,8 @@ const MatchDetailPage = () => {
                       handleSameChamp(e, summoner.selectedChampion);
                     }}
                   >
-                    같은 챔피언을 사용한 소환사 보기
+                    같은 챔피언을 사용한
+                    <br /> 소환사 보기
                   </button>
                 </div>
               </div>
@@ -182,19 +144,58 @@ const MatchDetailPage = () => {
         </div>
       </div>
       <div className='events'>
-        <h2>Events</h2>
-        {mockItem &&
-          mockItem.events.map((event, index) => (
-            <div key={index} className='event'>
-              <p>{event.eventTime}</p>
-              <p>{event.eventType}</p>
-              <p>{event.participantId}</p>
-              {event.eventType === "ITEM_PURCHASED" ? (
-                <p>{event.itemName}</p>
-              ) : null}
-            </div>
-          ))}
+        <h2>이벤트</h2>
+        <h4>
+          이벤트 항목을 누르면 그 이벤트와 일어난 시간이 비슷한 이벤트를 볼 수
+          있습니다.
+        </h4>
+        {matchDetails.events &&
+          matchDetails.events
+            .slice(
+              (currentPage - 1) * eventsPerPage,
+              currentPage * eventsPerPage,
+            )
+            .map((event, index) => (
+              <div className='event'>
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  key={index}
+                  to={{
+                    pathname: `/event/${event.eventTime}`,
+                  }}
+                >
+                  <p style={{ fontWeight: "800" }}>
+                    참가자 {event.participantId} 님의 {event.eventType}
+                  </p>
+                  <p>이벤트가 일어난 시간 : {event.eventTime} (초)</p>
+                  {event.eventType === "ITEM_PURCHASED" ? (
+                    <p>구매한 아이템 : {event.itemName}</p>
+                  ) : null}
+                </Link>
+              </div>
+            ))}
       </div>
+
+      <ul className='pagination'>
+        {matchDetails.events &&
+          Array.from(
+            {
+              length: Math.ceil(matchDetails.events.length / eventsPerPage),
+            },
+            (_, index) => (
+              <li
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                style={{
+                  fontSize: "16px",
+                  fontWeight: currentPage === index + 1 ? "bold" : "normal",
+                }}
+              >
+                {index + 1}
+              </li>
+            ),
+          )}
+      </ul>
     </div>
   );
 };

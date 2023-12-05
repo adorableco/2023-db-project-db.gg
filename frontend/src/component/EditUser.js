@@ -4,32 +4,33 @@
 
 import React, { useState, useEffect } from "react";
 import "./EditUser.css";
+import axios from "axios";
 
 const mockData = {
   gameAccounts: [
     {
-      gameName: "Noob piss off",
-      tier: "CHALLENGER",
+      summonerName: "Noob piss off",
+      Tier: "CHALLENGER",
       accountLevel: 300,
     },
     {
-      gameName: "NS Calix",
-      tier: "CHALLENGER",
+      summonerName: "NS Calix",
+      Tier: "CHALLENGER",
       accountLevel: 859,
     },
     {
-      gameName: "NEED HER",
-      tier: "MASTER",
+      summonerName: "NEED HER",
+      Tier: "MASTER",
       accountLevel: 843,
     },
     {
-      gameName: "No way out",
-      tier: "MASTER",
+      summonerName: "No way out",
+      Tier: "MASTER",
       accountLevel: 118,
     },
     {
-      gameName: "Naind",
-      tier: "MASTER",
+      summonerName: "Naind",
+      Tier: "MASTER",
       accountLevel: 102,
     },
   ],
@@ -40,20 +41,22 @@ const EditUser = () => {
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [isDeleteFormVisible, setIsDeleteFormVisible] = useState(false);
   const [existingAccount, setExistingAccount] = useState(false);
-  const [gameName, setGameName] = useState("");
-  const [newGameName, setNewGameName] = useState("");
-  const [tier, setTier] = useState("");
+  const [summonerName, setsummonerName] = useState("");
+  const [newsummonerName, setNewsummonerName] = useState("");
+  const [newGameAccountId, setNewGameAccountId] = useState("");
+  const [updatedGameAccounts, setUpdatedGameAccounts] = useState([]);
+  const [Tier, setTier] = useState("");
   const [accountLevel, setAccountLevel] = useState("");
   const [editing, setEditing] = useState(false);
   const [canTouch, setCanTouch] = useState(false);
   const [gameAccounts, setGameAccounts] = useState([]);
 
   const handleInputChange = (e) => {
-    setGameName(e.target.value);
+    setsummonerName(e.target.value);
   };
 
-  const handleNewGameNameChange = (e) => {
-    setNewGameName(e.target.value);
+  const handleNewsummonerNameChange = (e) => {
+    setNewsummonerName(e.target.value);
   };
 
   const handleTierChange = (e) => {
@@ -64,22 +67,44 @@ const EditUser = () => {
     setAccountLevel(e.target.value);
   };
 
-  const handleAdd = () => {
-    const newGameAccount = {
-      gameName: newGameName,
-      tier,
-      accountLevel,
-    };
+  //api 연결해야 할 곳
+  const handleAdd = async () => {
+    try {
+      await axios
+        .post(`/api`, {
+          uniqueGameAccountId: 672,
+          summonerName: "새로운계정",
+          accountLevel: "80",
+          Tier: "CHALLENGER",
+        })
+        .then((res) => {
+          // 중복 여부 체크
+          // if(res.data == "이미 존재하는 사용자입니다."){
+          //   alert("이미 존재하는 사용자입니다.")
+          // }
 
-    setGameAccounts([...gameAccounts, newGameAccount]);
-    clearInputs();
+          console.log(res.data);
+        });
+      const newGameAccount = {
+        uniqueGameAccountId: newGameAccountId,
+        summonerName: newsummonerName,
+        Tier,
+        accountLevel,
+      };
+
+      setGameAccounts([...gameAccounts, newGameAccount]);
+      clearInputs();
+    } catch {
+      console.error("Adding User Failed!");
+    }
   };
 
+  //api 연결해야 할 곳
   const handleEdit = () => {
     if (canTouch) {
       const editedGameAccounts = gameAccounts.map((account) =>
-        account.gameName === gameName
-          ? { ...account, gameName: newGameName, tier, accountLevel }
+        account.summonerName === summonerName
+          ? { ...account, summonerName: newsummonerName, Tier, accountLevel }
           : account,
       );
 
@@ -92,19 +117,27 @@ const EditUser = () => {
     }
   };
 
-  const handleDelete = () => {
-    const updatedGameAccounts = gameAccounts.filter(
-      (account) => account.gameName !== gameName,
-    );
+  //api 연결해야 할 곳
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/?`).then(() => {
+        alert("삭제가 완료되었습니다.");
+        // const updatedGameAccounts = gameAccounts.filter(
+        //   (account) => account.summonerName !== summonerName,
+        // );
+      });
+    } catch {
+      console.error("Deleting User Failed!");
+    }
 
     setGameAccounts(updatedGameAccounts);
     clearInputs();
   };
 
   const handleEditClick = (account) => {
-    setGameName(account.gameName);
-    setNewGameName(account.gameName);
-    setTier(account.tier);
+    setsummonerName(account.summonerName);
+    setNewsummonerName(account.summonerName);
+    setTier(account.Tier);
     setAccountLevel(account.accountLevel);
     setEditing(true);
   };
@@ -112,30 +145,34 @@ const EditUser = () => {
   // 수정/삭제 시 회원 존재 확인
   const checkExistedName = () => {
     setExistingAccount(
-      mockData.gameAccounts.find((account) => account.gameName === gameName),
+      mockData.gameAccounts.find(
+        (account) => account.summonerName === summonerName,
+      ),
     );
     if (!existingAccount) {
       alert("존재하지 않는 게임 이름입니다.");
-      setGameName("");
+      setsummonerName("");
     }
   };
 
   // 수정/등록 시 새 이름 중복 여부 확인
   const checkSameName = () => {
     setExistingAccount(
-      mockData.gameAccounts.find((account) => account.gameName === gameName),
+      mockData.gameAccounts.find(
+        (account) => account.summonerName === summonerName,
+      ),
     );
     if (existingAccount) {
       alert("이미 존재하는 게임 이름입니다.");
-      setNewGameName("");
+      setNewsummonerName("");
     } else {
       alert("사용 가능한 게임 이름입니다.");
     }
   };
 
   const clearInputs = () => {
-    setGameName("");
-    setNewGameName("");
+    setsummonerName("");
+    setNewsummonerName("");
     setTier("");
     setAccountLevel("");
     setCanTouch(false);
@@ -170,11 +207,11 @@ const EditUser = () => {
             <label>Game Name:</label>
             <input
               type='text'
-              value={newGameName}
-              onChange={handleNewGameNameChange}
+              value={newsummonerName}
+              onChange={handleNewsummonerNameChange}
             />
             <label>Tier:</label>
-            <input type='text' value={tier} onChange={handleTierChange} />
+            <input type='text' value={Tier} onChange={handleTierChange} />
             <label>Account Level:</label>
             <input
               type='number'
@@ -188,19 +225,23 @@ const EditUser = () => {
         {isEditFormVisible && (
           <>
             <label>Game Name:</label>
-            <input type='text' value={gameName} onChange={handleInputChange} />
+            <input
+              type='text'
+              value={summonerName}
+              onChange={handleInputChange}
+            />
             <button onClick={checkExistedName}>수정할 게임 이름 확인</button>
 
             <label>New Game Name:</label>
             <input
               type='text'
-              value={newGameName}
-              onChange={handleNewGameNameChange}
+              value={newsummonerName}
+              onChange={handleNewsummonerNameChange}
             />
             <button onClick={checkSameName}>중복 여부 확인</button>
 
             <label>Tier:</label>
-            <input type='text' value={tier} onChange={handleTierChange} />
+            <input type='text' value={Tier} onChange={handleTierChange} />
             <label>Account Level:</label>
             <input
               type='number'
@@ -214,7 +255,11 @@ const EditUser = () => {
         {isDeleteFormVisible && (
           <>
             <label>Game Name:</label>
-            <input type='text' value={gameName} onChange={handleInputChange} />
+            <input
+              type='text'
+              value={summonerName}
+              onChange={handleInputChange}
+            />
             <button onClick={checkExistedName}>게임 이름 확인</button>
 
             <button onClick={handleDelete}>Delete</button>
@@ -225,9 +270,9 @@ const EditUser = () => {
         <h2 style={{ marginTop: "40px" }}>게임 계정 정보</h2>
         <ul>
           {gameAccounts.map((account) => (
-            <li key={account.gameName}>
-              <span>{account.gameName}</span>
-              <span>{account.tier}</span>
+            <li key={account.summonerName}>
+              <span>{account.summonerName}</span>
+              <span>{account.Tier}</span>
               <span>{account.accountLevel}</span>
               <button onClick={() => handleEditClick(account)}>Edit</button>
             </li>
