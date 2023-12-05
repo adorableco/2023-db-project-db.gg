@@ -1,6 +1,6 @@
 /** @format */
 
-// EditUser.js
+// EditItem.js
 
 import React, { useState, useEffect } from "react";
 import "./EditUser.css";

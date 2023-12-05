@@ -35,6 +35,10 @@ const Search = () => {
     navigate("/item_edit");
   };
 
+  const handleChamp = () => {
+    navigate("/champ_edit");
+  };
+
   return (
     <div className='app'>
       <img src='/logo.png' style={{ width: "60px" }} />
@@ -56,6 +60,9 @@ const Search = () => {
       </button>
       <button onClick={handleItem} style={{ marginTop: "10px" }}>
         아이템 데이터 수정하기
+      </button>
+      <button onClick={handleChamp} style={{ marginTop: "10px" }}>
+        챔피언 데이터 수정하기
       </button>
       <footer style={{ color: "gray", fontSize: "12px", marginTop: "80px" }}>
         2023 경북대학교 데이터베이스 수업 프로젝트

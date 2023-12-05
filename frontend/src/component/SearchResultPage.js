@@ -112,7 +112,7 @@ const SearchResultPage = () => {
                   pathname: `/match_detail/${match.matchId}`,
                 }}
               >
-                <li key={match.matchId} className='participant'>
+                <li key={match.matchId} className='participant_list'>
                   <p style={{ fontWeight: "700" }}>매치 ID: {match.matchId}</p>
 
                   <div>
@@ -135,8 +135,17 @@ const SearchResultPage = () => {
                       </p>
                     </div>
                   </div>
-
-                  <p>선택한 챔피언: {match.selectedChampion}</p>
+                  <div>
+                    <p style={{ lineHeight: "0px" }}>
+                      선택한 챔피언: {match.selectedChampion}{" "}
+                    </p>
+                    <img
+                      src={`/img/${match.selectedChampionImage}`}
+                      alt={match.selectedChampion}
+                      className='champion-image'
+                      style={{ width: "65px", height: "65px" }}
+                    />
+                  </div>
                 </li>
               </Link>
             ))}
