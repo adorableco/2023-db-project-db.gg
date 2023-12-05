@@ -20,7 +20,6 @@ const MatchDetailPage = () => {
   const [currentPage, setCurrentPage] = useState(1); // 추가: 현재 페이지 상태
   const eventsPerPage = 20; // 추가: 페이지당 이벤트 수
 
-  // 페이지 변경 이벤트 핸들러
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -28,12 +27,6 @@ const MatchDetailPage = () => {
   const handleSameChamp = (e, champName) => {
     e.preventDefault();
     navigate(`/champ/${champName}`);
-  };
-
-  const getRandomImage = () => {
-    const randomImageWidth = Math.floor(Math.random() * 400) + 200;
-    const randomImageHeight = Math.floor(Math.random() * 400) + 200;
-    return `https://picsum.photos/${randomImageWidth}/${randomImageHeight}`;
   };
 
   useEffect(() => {
@@ -108,7 +101,7 @@ const MatchDetailPage = () => {
             matchDetails.summoners.map((summoner) => (
               <div key={summoner.participantId} className='participant'>
                 <img
-                  src={getRandomImage()}
+                  src={`/img/${summoner.selectedChampionImage}`}
                   alt={summoner.selectedChampion}
                   className='champion-image'
                 />
