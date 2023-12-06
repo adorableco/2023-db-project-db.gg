@@ -1,0 +1,35 @@
+/* Champion.css */
+
+.champion-container {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .champion-stats {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .stats-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .stats-item p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+
+  .average-stats {
+     color:darkblue;
+     font-weight: 800;
+  }
