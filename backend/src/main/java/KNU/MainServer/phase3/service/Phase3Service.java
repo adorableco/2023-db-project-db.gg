@@ -1,5 +1,8 @@
 package KNU.MainServer.phase3.service;
 
+import KNU.MainServer.global.domain.Champion;
+import KNU.MainServer.global.domain.GameAccount;
+import KNU.MainServer.global.domain.Item;
 import KNU.MainServer.global.type.TierType;
 import KNU.MainServer.phase3.dto.GameAccountDTO;
 import KNU.MainServer.phase3.dto.ItemDTO;
@@ -17,7 +20,6 @@ import KNU.MainServer.phase3.response.UpdateItemResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -39,8 +41,8 @@ public class Phase3Service {
     
     public DeleteGameAccountResponse deleteGameAccount(Long gameAccountId) {
         try {
-            phase3EntityManager.deleteGameAccount(gameAccountID);
-            return new DeleteGameAccountResponse(gameAccountID);
+            phase3EntityManager.deleteGameAccount(gameAccountId);
+            return new DeleteGameAccountResponse(gameAccountId);
         } catch (Exception e) {
             log.error("Failed to remove a GameAccount", e);
             throw e;
@@ -58,7 +60,7 @@ public class Phase3Service {
     }
 
     public InsertItemResponse insertItem
-            (String newItemName, String newDescription, Integer newPrice) 
+            (String newItemName, String newDescription, Integer newPrice) {
         Item item = phase3EntityManager.insertItem(newItemName, newDescription, newPrice);
         if(item == null){
             return null;
@@ -108,8 +110,8 @@ public class Phase3Service {
         }
     }
 
-    public UpdateChampionResponse UpdateChampion(Long uniqueChampId, String newChampName, String newChampPhoto) {
-        Champion existingChampion = phase3EntityManager.UpdateChampion(uniqueChampId, newChampName, newChampPhoto);
+    public UpdateChampionResponse updateChampion(Long uniqueChampId, String newChampName, String newChampPhoto) {
+        Champion existingChampion = phase3EntityManager.updateChampion(uniqueChampId, newChampName, newChampPhoto);
         if(existingChampion == null) {
             return null;
         }

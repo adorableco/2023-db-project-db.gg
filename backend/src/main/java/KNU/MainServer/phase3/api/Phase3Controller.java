@@ -1,6 +1,7 @@
 package KNU.MainServer.phase3.api;
 
 import KNU.MainServer.global.type.TierType;
+import KNU.MainServer.phase3.response.UpdateItemResponse;
 import KNU.MainServer.phase3.service.Phase3Service;
 import KNU.MainServer.phase3.response.InsertChampionResponse;
 import KNU.MainServer.phase3.response.InsertGameAccountResponse;
@@ -10,7 +11,6 @@ import KNU.MainServer.phase3.response.DeleteGameAccountResponse;
 import KNU.MainServer.phase3.response.DeleteItemResponse;
 import KNU.MainServer.phase3.response.UpdateChampionResponse;
 import KNU.MainServer.phase3.response.UpdateGameAccountResponse;
-import KNU.MainServer.phase3.response.UpdateItemResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -76,13 +76,13 @@ public class Phase3Controller {
     }
 
     @PostMapping("/editItem")
-    public ResponseEntity<ItemResponse> updateItem(
+    public ResponseEntity<UpdateItemResponse> updateItem(
             @RequestParam(name = "itemId") Long itemId,
             @RequestParam(name = "name") String newName,
             @RequestParam(name = "description") String newDescription,
             @RequestParam(name = "price") Integer newPrice) {
 
-        ItemResponse response = phase3Service.updateItem(itemId, newName, newDescription, newPrice);
+        UpdateItemResponse response = phase3Service.updateItem(itemId, newName, newDescription, newPrice);
 
         return ResponseEntity.ok(response);
     }
@@ -107,7 +107,7 @@ public class Phase3Controller {
     }
 
     @PostMapping("/editChampion")
-    public ResponseEntity<ChampionResponse> updateChampion(
+    public ResponseEntity<UpdateChampionResponse> updateChampion(
             @RequestParam(name = "uniqueChampId") Long champId,
             @RequestParam(name = "champName") String newChampName,
             @RequestParam(name = "champPhoto") String newChampPhoto) { 

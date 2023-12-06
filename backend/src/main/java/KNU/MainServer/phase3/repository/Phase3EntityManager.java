@@ -3,6 +3,7 @@ package KNU.MainServer.phase3.repository;
 import KNU.MainServer.global.domain.GameAccount;
 import KNU.MainServer.global.domain.Item;
 import KNU.MainServer.global.domain.Champion;
+import KNU.MainServer.global.type.TierType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
@@ -100,7 +101,7 @@ public class Phase3EntityManager {
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public GameAccount updateItem(Long itemId, String newItemName, String newDescription, Integer newPrice) {
+    public Item updateItem(Long itemId, String newItemName, String newDescription, Integer newPrice) {
         try {
             Item item = em.find(Item.class, itemId);
             item.setName(newItemName);

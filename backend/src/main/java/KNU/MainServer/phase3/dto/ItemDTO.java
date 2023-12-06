@@ -1,6 +1,6 @@
-package KNU.MainServer.dto;
+package KNU.MainServer.phase3.dto;
 
-import KNU.MainServer.global.Type.TierType;
+import KNU.MainServer.global.type.TierType;
 import KNU.MainServer.global.domain.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class ItemDTO {
 
     public static ItemDTO from(Item item) {
         return ItemDTO.builder()
-                .itemId(item.getId())
+                .itemId(item.getItemId())
                 .itemName(item.getName())
                 .description(item.getDescription())
                 .price(item.getPrice())

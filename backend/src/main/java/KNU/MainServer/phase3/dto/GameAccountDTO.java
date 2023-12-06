@@ -1,7 +1,7 @@
-package KNU.MainServer.dto;
+package KNU.MainServer.phase3.dto;
 
-import KNU.MainServer.global.Type.TierType;
 import KNU.MainServer.global.domain.GameAccount;
+import KNU.MainServer.global.type.TierType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +20,6 @@ public class GameAccountDTO {
 
     public static GameAccountDTO from(GameAccount gameAccount) {
         return GameAccountDTO.builder()
-                .uniqueGameAccount(gameAccount.getUniqueGameAccount())
                 .accountLevel(gameAccount.getAccountLevel())
                 .tier(gameAccount.getTier())
                 .gameName(gameAccount.getGameName())
