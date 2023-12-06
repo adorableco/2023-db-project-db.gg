@@ -43,13 +43,9 @@ const MatchDetailPage = () => {
 
     const fetchMatchAnalysis = async () => {
       try {
-        await axios
-          .get(`/phase2/query10?matchId=${matchId}`, {
-            matchId: matchDetails.matchId,
-          })
-          .then((res) => {
-            setMatchAnalysis(res.data.response);
-          });
+        await axios.get(`/phase2/query10?matchId=${matchId}`).then((res) => {
+          setMatchAnalysis(res.data.response);
+        });
       } catch (error) {
         console.error("Error fetching match analysis:", error);
       }
@@ -57,7 +53,7 @@ const MatchDetailPage = () => {
 
     const fetchMatchResults = async () => {
       try {
-        await axios.get(`/phase2/query13?duration=1100`).then((res) => {
+        await axios.get(`/phase2/query13?matchId=${matchId}`).then((res) => {
           setMatchResults(res.data.response);
         });
       } catch (error) {
