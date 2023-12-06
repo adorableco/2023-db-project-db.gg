@@ -13,9 +13,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "GAME_ACCOUNT")
 public class GameAccount {
     @Id
