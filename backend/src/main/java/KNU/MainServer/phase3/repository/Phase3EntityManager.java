@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class Phase3EntityManager {
     private final EntityManager em;
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public GameAccount insertGameAccount(String newName, Integer newLevel, TierType newTier) {
         try {
             GameAccount gameAccount = new GameAccount();
@@ -35,7 +35,7 @@ public class Phase3EntityManager {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public Long deleteGameAccount(Long gameAccountId) {
         try {
             GameAccount gameAccount = em.find(GameAccount.class, gameAccountId);
@@ -52,7 +52,7 @@ public class Phase3EntityManager {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public GameAccount updateGameAccount(Long uniqueGameAccountId, String newName, Integer newLevel, TierType newTier) {
         try {
             GameAccount gameAccount = em.find(GameAccount.class, uniqueGameAccountId);
@@ -67,7 +67,7 @@ public class Phase3EntityManager {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public Item insertItem(String newItemName, String newDescription, Integer newPrice) {
         try {
             Item item = new Item();
@@ -83,7 +83,7 @@ public class Phase3EntityManager {
         }
     }
     
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public Long deleteItem(Long itemId) {
         try {
             Item item = em.find(Item.class, itemId);
@@ -100,7 +100,7 @@ public class Phase3EntityManager {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public Item updateItem(Long itemId, String newItemName, String newDescription, Integer newPrice) {
         try {
             Item item = em.find(Item.class, itemId);
@@ -115,7 +115,7 @@ public class Phase3EntityManager {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public Champion insertChampion(String newChampName, String newChampPhoto) {
         try {
             Champion champion = new Champion();
@@ -131,7 +131,7 @@ public class Phase3EntityManager {
         }
     }
     
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public Long deleteChampion(Long champId) {
         try {
             Champion champion = em.find(Champion.class, champId);
@@ -148,7 +148,7 @@ public class Phase3EntityManager {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public Champion updateChampion(Long champId, String newChampName, String newChampPhoto) {
         try {
             Champion champion = em.find(Champion.class, champId);
