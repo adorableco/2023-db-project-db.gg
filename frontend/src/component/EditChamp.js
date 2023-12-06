@@ -6,36 +6,6 @@ import React, { useState, useEffect } from "react";
 import "./EditUser.css";
 import axios from "axios";
 
-const mockData = {
-  champions: [
-    {
-      champId: "Noob piss off",
-      champName: "CHALLENGER",
-      champPhoto: 300,
-    },
-    {
-      champId: "NS Calix",
-      champName: "CHALLENGER",
-      champPhoto: 859,
-    },
-    {
-      champId: "NEED HER",
-      champName: "MASTER",
-      champPhoto: 843,
-    },
-    {
-      champId: "No way out",
-      champName: "MASTER",
-      champPhoto: 118,
-    },
-    {
-      champId: "Naind",
-      champName: "MASTER",
-      champPhoto: 102,
-    },
-  ],
-};
-
 const EditChamp = () => {
   const [isAddFormVisible, setIsAddFormVisible] = useState(false);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
@@ -48,7 +18,6 @@ const EditChamp = () => {
   const [champName, setChampName] = useState("");
   const [champPhoto, setChampPhoto] = useState("");
   const [editing, setEditing] = useState(false);
-  const [canTouch, setCanTouch] = useState(false);
   const [champions, setChampions] = useState([]);
 
   const handleInputChange = (e) => {
@@ -71,27 +40,19 @@ const EditChamp = () => {
   const handleAdd = async () => {
     try {
       await axios
-        .post(`/api`, {
-          uniqueChampchampId: 672,
-          champId: "새로운계정",
-          champPhoto: "80",
-          champName: "CHALLENGER",
-        })
+        .post(
+          `/phase3/createChampion?uniqueChampId=${newchampId}&champName=${champName}&champPhoto=${champPhoto}`,
+        )
         .then((res) => {
+          alert("챔피언 추가가 완료되었습니다!");
+          console.log(res.data);
+
           // 중복 여부 체크
           // if(res.data == "이미 존재하는 챔피언입니다."){
           //   alert("이미 존재하는 챔피언입니다.")
           // }
-
-          console.log(res.data);
         });
-      const newChampion = {
-        champId: newchampId,
-        champName,
-        champPhoto,
-      };
 
-      setChampions([...champions, newChampion]);
       clearInputs();
     } catch {
       console.error("Adding Champ Failed!");
@@ -99,32 +60,34 @@ const EditChamp = () => {
   };
 
   //api 연결해야 할 곳
-  const handleEdit = () => {
-    if (canTouch) {
-      const editedchampions = champions.map((champ) =>
-        champ.champId === champId
-          ? { ...champ, champId: newchampId, champName, champPhoto }
-          : champ,
-      );
+  const handleEdit = async () => {
+    try {
+      await axios
+        .post(
+          `/phase3/editChampion?uniqueChampId=${newchampId}&champName=${champName}&champPhoto=${champPhoto}`,
+        )
+        .then(() => {
+          alert("챔피언 정보 수정이 완료되었습니다.");
 
-      setChampions(editedchampions);
-      setEditing(false);
-      clearInputs();
-    } else {
-      alert("'챔피언 이름 확인 버튼'을 눌러 존재 여부를 확인하세요.");
-      clearInputs();
+          setEditing(false);
+          clearInputs();
+        });
+    } catch {
+      console.error("Editing Champ Failed!");
     }
   };
 
   //api 연결해야 할 곳
   const handleDelete = async () => {
     try {
-      await axios.delete(`/?`).then(() => {
-        alert("삭제가 완료되었습니다.");
-        // const updatedchampions = champions.filter(
-        //   (champ) => champ.champId !== champId,
-        // );
-      });
+      await axios
+        .delete(`/phase3/removeChampion?uniqueChampId=${champId}`)
+        .then(() => {
+          alert("삭제가 완료되었습니다.");
+          // const updatedchampions = champions.filter(
+          //   (champ) => champ.champId !== champId,
+          // );
+        });
     } catch {
       console.error("Deleting Champ Failed!");
     }
@@ -142,40 +105,35 @@ const EditChamp = () => {
   };
 
   // 수정/삭제 시 회원 존재 확인
-  const checkExistedName = () => {
-    setExistingchamp(
-      mockData.champions.find((champ) => champ.champId === champId),
-    );
-    if (!existingchamp) {
-      alert("존재하지 않는 챔피언 이름입니다.");
-      setchampId("");
-    }
-  };
+  // const checkExistedName = () => {
+  //   setExistingchamp(
+  //     mockData.champions.find((champ) => champ.champId === champId),
+  //   );
+  //   if (!existingchamp) {
+  //     alert("존재하지 않는 챔피언 이름입니다.");
+  //     setchampId("");
+  //   }
+  // };
 
   // 수정/등록 시 새 이름 중복 여부 확인
-  const checkSameName = () => {
-    setExistingchamp(
-      mockData.champions.find((champ) => champ.champId === champId),
-    );
-    if (existingchamp) {
-      alert("이미 존재하는 챔피언 이름입니다.");
-      setNewchampId("");
-    } else {
-      alert("사용 가능한 챔피언 이름입니다.");
-    }
-  };
+  // const checkSameName = () => {
+  //   setExistingchamp(
+  //     mockData.champions.find((champ) => champ.champId === champId),
+  //   );
+  //   if (existingchamp) {
+  //     alert("이미 존재하는 챔피언 이름입니다.");
+  //     setNewchampId("");
+  //   } else {
+  //     alert("사용 가능한 챔피언 이름입니다.");
+  //   }
+  // };
 
   const clearInputs = () => {
     setchampId("");
     setNewchampId("");
     setChampName("");
     setChampPhoto("");
-    setCanTouch(false);
   };
-
-  useEffect(() => {
-    setChampions(mockData.champions);
-  }, []);
 
   const toggleForms = (formType) => {
     clearInputs();
@@ -199,9 +157,9 @@ const EditChamp = () => {
       <div>
         {isAddFormVisible && (
           <>
-            <label>Champ Name:</label>
+            <label>Champ Id:</label>
             <input
-              type='text'
+              type='number'
               value={newchampId}
               onChange={handleNewchampIdChange}
             />
@@ -211,9 +169,10 @@ const EditChamp = () => {
               value={champName}
               onChange={handlechampNameChange}
             />
-            <label>champ Level:</label>
+            <label>champ Photo:</label>
+            <p>문자열 형태의 이미지 주소를 입력하세요.</p>
             <input
-              type='number'
+              type='text'
               value={champPhoto}
               onChange={handlechampPhotoChange}
             />
@@ -223,19 +182,15 @@ const EditChamp = () => {
 
         {isEditFormVisible && (
           <>
-            <label>Champ Name:</label>
-            <input type='text' value={champId} onChange={handleInputChange} />
-            <button onClick={checkExistedName}>수정할 챔피언 이름 확인</button>
-
-            <label>New Champ Name:</label>
+            <label>Champ Id:</label>
             <input
-              type='text'
+              type='number'
               value={newchampId}
               onChange={handleNewchampIdChange}
             />
-            <button onClick={checkSameName}>중복 여부 확인</button>
+            {/*<button onClick={checkSameName}>중복 여부 확인</button>*/}
 
-            <label>champName:</label>
+            <label>New Champ Name:</label>
             <input
               type='text'
               value={champName}
@@ -253,9 +208,9 @@ const EditChamp = () => {
 
         {isDeleteFormVisible && (
           <>
-            <label>Champ Name:</label>
+            <label>Champ Id:</label>
             <input type='text' value={champId} onChange={handleInputChange} />
-            <button onClick={checkExistedName}>챔피언 이름 확인</button>
+            {/*<button onClick={checkExistedName}>챔피언 이름 확인</button>*/}
 
             <button onClick={handleDelete}>Delete</button>
           </>
