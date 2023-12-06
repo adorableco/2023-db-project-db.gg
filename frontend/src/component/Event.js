@@ -41,13 +41,11 @@ const Event = () => {
             )
             .map((event, index) => (
               <div key={index} className='event'>
-                <p style={{ fontWeight: "800" }}>
-                  참가자 {event.participantId} 님의 {event.eventType}
-                </p>
+                <p style={{ fontWeight: "800" }}>{event.eventType}</p>
                 <p>이벤트가 일어난 시간 : {event.eventTime} (초)</p>
-                {event.eventType === "ITEM_PURCHASED" ? (
+                {/*{event.eventType === "ITEM_PURCHASED" ? (
                   <p>구매한 아이템 : {event.itemName}</p>
-                ) : null}
+                ) : null}*/}
               </div>
             ))}
       </div>
