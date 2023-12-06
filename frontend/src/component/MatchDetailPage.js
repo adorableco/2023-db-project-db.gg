@@ -70,7 +70,15 @@ const MatchDetailPage = () => {
     <div className='match-detail-page'>
       <h2>매치 상세 정보</h2>
 
-      <div className='match-results' style={{ left: "4px" }}>
+      <div
+        className='match-results'
+        style={{
+          left: "4px",
+          maxHeight: "600px",
+          overflowY: "scroll",
+          scrollBehavior: "smooth",
+        }}
+      >
         <h4 style={{ marginBottom: "0px" }}>비슷한 시간대의 진행된</h4>
         <h4 style={{ marginTop: "0px" }}>경기들은 어떨까?</h4>
         {matchAnalysis.map((result, index) => (
@@ -124,7 +132,15 @@ const MatchDetailPage = () => {
               </div>
             ))}
         </div>
-        <div className='match-results'>
+        <div
+          className='match-results'
+          style={{
+            right: "4px",
+            maxHeight: "600px",
+            overflowY: "scroll",
+            scrollBehavior: "smooth",
+          }}
+        >
           <h4 style={{ marginBottom: "0px" }}>진행 시간이 비슷한</h4>
           <h4 style={{ marginTop: "0px" }}>경기들의 결과는?</h4>
           {matchResults.map((result, index) => (
